@@ -5,6 +5,23 @@
   font-family: 'Verdana', serif !important;
 }
 
+.item {
+  margin-top: 15px;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+}
+
+.item img {
+  width: 100px; 
+  height: auto; 
+  margin-right: 10px; 
+}
+
+
 .jumbotron .display-4 {
   font-weight: bold;
 }
