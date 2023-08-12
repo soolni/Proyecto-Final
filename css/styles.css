@@ -205,3 +205,95 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.bodyLogin{
+  background-image: linear-gradient(140deg, #297cc0, #105d9c, #08497e, #111c80, #260877, #321483, #6243b6, #9a7bf0);
+  /*color: #9a7bf0;*/
+  background-size: 400%;
+  animation: lognimado 10s infinite;
+}
+
+@keyframes lognimado{
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}
+
+.mt-5{
+  width: 27%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.containerLogin{
+  width: 100%;
+  padding: 15px;
+}
+
+.containerLogin input{
+  font-size: 20px;
+  width: 82%;
+  margin-left: 9%;
+  padding: 10px;
+  border: 1px solid rgb(182, 179, 179);
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+#access{
+  border: none;
+  width: 82%;
+  margin-left: 9%;
+  color: whitesmoke;
+  font-size: 20px;
+  background-color: #08497e;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+#access:hover{
+  background-color: #062c4b;
+  transition: ease 1s;
+}
+
+.formularioLogin{
+  border-radius: 10px;
+  background:whitesmoke;
+  margin-top: 150px;
+  padding: 5px;
+}
+
+.formularioLogin h2{
+  text-align: center;
+  color: #272727;
+  font-size: 40px;
+}
+
+#basesycond{
+  text-align: center;
+}
+
+#container {
+  color: #272727;
+  max-width: 40rem;
+  background-color: rgb(255, 255, 255);
+  border-radius: 7px;
+  text-shadow: 1px 1px 2px rgb(114, 113, 113);
+}
+
+.logos img{
+  width: 270px;
+}
+.logoJap{
+  float: right;
+}
+.emercado{
+  float: left;
+}
