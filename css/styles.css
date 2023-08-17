@@ -22,7 +22,7 @@
 }
 
 
-.jumbotron .display-4 {
+.jumbotron .display-4{
   font-weight: bold;
 }
 
@@ -84,12 +84,12 @@ nav a {
   font-size: 38px;
 }
 
-footer {
+.text-muted{
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
 
-footer p {
+.text-muted p {
   margin-bottom: .25rem;
 }
 
@@ -206,8 +206,11 @@ a.custom-card:hover {
   color: orange;
 }
 
+
+/* Aca empieza la modificacion del login.html */
+/*                                            */ 
 .bodyLogin{
-  background-image: linear-gradient(140deg, #297cc0, #105d9c, #08497e, #111c80, #260877, #321483, #6243b6, #9a7bf0);
+  background-image: linear-gradient(140deg, #ffffff, #f3dfba, #f5d69e, #f0c16a, #f3b94d, #faaf23, #f86e55, #f73838);
   /*color: #9a7bf0;*/
   background-size: 400%;
   animation: lognimado 10s infinite;
@@ -226,7 +229,7 @@ a.custom-card:hover {
 }
 
 .mt-5{
-  width: 27%;
+  width: 24%;
   padding: 20px;
   margin: auto;
   margin-top: 100px;
@@ -293,7 +296,4 @@ a.custom-card:hover {
 }
 .logoJap{
   float: right;
-}
-.emercado{
-  float: left;
 }
