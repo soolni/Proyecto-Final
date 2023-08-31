@@ -39,3 +39,16 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+
+/*Pone el nombre del usuario en la navbar*/
+
+if (localStorage.getItem("usuario")) {
+  const item = document.querySelectorAll(".nav-item")[3];
+  const link = document.createElement("a");
+  link.classList.add("nav-link");
+  link.setAttribute("href", "my-profile.html");
+  link.innerHTML = `${localStorage.getItem("usuario")}`;
+  item.appendChild(link);
+}
+
