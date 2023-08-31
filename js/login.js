@@ -9,8 +9,8 @@ document.getElementById("formularioLogin").addEventListener("submit", (e) => {
         const contraseña = document.getElementById("contraseña").value;
     
         if (usuario && contraseña) {
-            document.cookie = "authenticated=true; path=/"
-    
+            localStorage.setItem("usuario", usuario);
+            localStorage.setItem("autenticado", "true");
             window.location.href = "index.html";
         } 
     })
