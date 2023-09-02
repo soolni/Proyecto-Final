@@ -63,7 +63,7 @@ function showProductList(arregloActualProd) {
   let contentToAppend = ""
   for (let item of arregloActualProd) {
 
-    if (((minPrice == undefined) || (minPrice !=undefined && parseInt(item.cost) >= minPrice)) &
+    if (((minPrice == undefined) || (minPrice !=undefined && parseInt(item.cost) >= minPrice)) &&
     ((maxPrice == undefined) || (maxPrice != undefined & parseInt(item.cost) <= maxPrice))){
       
       contentToAppend += `
@@ -79,11 +79,11 @@ function showProductList(arregloActualProd) {
         </div>
         `
       }
-      document.getElementById("products").innerHTML = contentToAppend;
   }
+  document.getElementById("products").innerHTML = contentToAppend;
 }
 
-/*Funcion que ordena y muestra los productos */
+/*Función que ordena y muestra los productos */
 
 function MostrarProdOrdenados(criterioDeOrden, arregloDeProd){
   criterioActual = criterioDeOrden;
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     minPrice = document.getElementById("rangeFilterPriceMin").value;
     maxPrice = document.getElementById("rangeFilterPriceMax").value;
   
-      if ((minPrice != undefined) && (minPrice !="") & (parseInt(minPrice)) >=0) {
+      if ((minPrice != undefined) && (minPrice !="") && (parseInt(minPrice)) >=0) {
         minPrice = parseInt(minPrice);
       } else {
         minPrice = undefined;
