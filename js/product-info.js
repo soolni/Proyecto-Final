@@ -67,13 +67,15 @@ fetch(COMMENTS_URL)
         for (let i = nuevoComentario.rating; i < 5; i++) {
         starsHTML += '<span class="fa fa-star"></span>';
         }
+        
+        
+        if(nuevoComentario.id === localStorage.getItem("clickedItemId")){
 
-        
-        comments.innerHTML += `
-        <p><strong>${nuevoComentario.usuario}</strong> - ${nuevoComentario.fecha} - ${starsHTML}</p>
-        <p>${nuevoComentario.comentario}</p><hr>
-        `;
-        
+            comments.innerHTML += `
+            <p><strong>${nuevoComentario.usuario}</strong> - ${nuevoComentario.fecha} - ${starsHTML}</p>
+            <p>${nuevoComentario.comentario}</p><hr>
+            `; 
+        }     
         
     })
     .catch(error => {
@@ -117,6 +119,7 @@ fetch(COMMENTS_URL)
         }
     
         const usuario = localStorage.getItem("usuario");
+        const ID = localStorage.getItem("clickedItemId")
         const fechaActual = new Date();
         const fechaFormateada = `${fechaActual.getFullYear()}-${('0' + (fechaActual.getMonth() + 1)).slice(-2)}-${('0' + fechaActual.getDate()).slice(-2)} ${('0' + fechaActual.getHours()).slice(-2)}:${('0' + fechaActual.getMinutes()).slice(-2)}:${('0' + fechaActual.getSeconds()).slice(-2)}`;
         
@@ -124,7 +127,8 @@ fetch(COMMENTS_URL)
             rating: selectedRating,
             fecha: fechaFormateada,
             comentario: comentario,
-            usuario: usuario
+            usuario: usuario,
+            id: ID,
         };       
 
         const comentarioDataJSON = JSON.stringify(comentarioData);
