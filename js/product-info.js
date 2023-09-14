@@ -36,16 +36,30 @@ fetch(DATA_URL)
 
 fetch(COMMENTS_URL)
     .then(response => response.json())
-    .then(data=>{
-        const comments = document.querySelector(".comentarios")              
-        data.forEach(function(e){
-            comments.innerHTML += `
+    .then(data => {
+        const comments = document.querySelector(".comentarios");
 
-             <p><strong>${e.user}</strong>  - ${e.dateTime} - <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></p>
-             <p>${e.description}</p><hr>
+        data.forEach(function (e) {
+            const comentario = document.createElement("p");
+            comentario.innerHTML = `<strong>${e.user}</strong> - ${e.dateTime} - 
+              <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>`;
 
+            const stars = comentario.querySelectorAll("span.fa-star");
+            for (let i = 0; i < e.score; i++) {
+                stars[i].classList.add("checked");
+            }
 
-            `
-        })
+            const descripcion= document.createElement("p");
+            descripcion.textContent = e.description;
+
+            comments.appendChild(comentario);
+            comments.appendChild(descripcion);
+            comments.appendChild(document.createElement("hr"));
+        });
     })
+    .catch(error => {
+        console.error("Error al cargar comentarios:", error);
+    });
+
+
 
