@@ -81,6 +81,21 @@ function showProductList(arregloActualProd) {
       }
   }
   document.getElementById("products").innerHTML = contentToAppend;
+  const items = document.querySelectorAll(".item");
+
+  items.forEach((item, index) => {
+    item.classList.add('cursor-active')
+    item.addEventListener("click", () => {
+      // Obtener el ID del elemento div al que se le hizo clic
+      const clickedItemId = arregloActualProd[index].id;
+  
+      // Guardar el ID en el Local Storage
+      localStorage.setItem("clickedItemId", clickedItemId);
+  
+      // Redireccionar a otra página o realizar otras acciones, si es necesario
+      window.location.href = "product-info.html";
+    });
+  });
 }
 
 /*Función que ordena y muestra los productos */
