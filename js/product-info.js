@@ -56,6 +56,25 @@ fetch(COMMENTS_URL)
             comments.appendChild(descripcion);
             comments.appendChild(document.createElement("hr"));
         });
+
+        const nuevoComentarioJSON = localStorage.getItem("nuevoComentario");
+        const nuevoComentario = JSON.parse(nuevoComentarioJSON);
+        
+        let starsHTML = '';
+        for (let i = 0; i < nuevoComentario.rating; i++) {
+        starsHTML += '<span class="fa fa-star checked"></span>';
+        }
+        for (let i = nuevoComentario.rating; i < 5; i++) {
+        starsHTML += '<span class="fa fa-star"></span>';
+        }
+
+        
+        comments.innerHTML += `
+        <p><strong>${nuevoComentario.usuario}</strong> - ${nuevoComentario.fecha} - ${starsHTML}</p>
+        <p>${nuevoComentario.comentario}</p><hr>
+        `;
+        
+        
     })
     .catch(error => {
         console.error("Error al cargar comentarios:", error);
@@ -87,9 +106,6 @@ fetch(COMMENTS_URL)
       const comentarioTexto = document.querySelector('.comentario-texto');
       const comentario = comentarioTexto.value;
     
-      // Aquí puedes utilizar la variable "selectedRating" y "comentario" para realizar cualquier acción adicional, como enviarlos al servidor
-      console.log(selectedRating)
-      console.log(comentario)
       const comments = document.querySelector(".comentarios")  
     
       let stars = '';
@@ -103,18 +119,18 @@ fetch(COMMENTS_URL)
         const usuario = localStorage.getItem("usuario");
         const fechaActual = new Date();
         const fechaFormateada = `${fechaActual.getFullYear()}-${('0' + (fechaActual.getMonth() + 1)).slice(-2)}-${('0' + fechaActual.getDate()).slice(-2)} ${('0' + fechaActual.getHours()).slice(-2)}:${('0' + fechaActual.getMinutes()).slice(-2)}:${('0' + fechaActual.getSeconds()).slice(-2)}`;
-    
-        comments.innerHTML += `
-        <p><strong>${usuario}</strong> - ${fechaFormateada} - ${stars}</p>
-        <p>${comentario}</p><hr>
-        `;
-          
-      
-    
-      // Limpia los campos después de enviar el comentario (esto es solo un ejemplo)
+        
+        const comentarioData = {
+            rating: selectedRating,
+            fecha: fechaFormateada,
+            comentario: comentario,
+            usuario: usuario
+        };       
+
+        const comentarioDataJSON = JSON.stringify(comentarioData);
+        localStorage.setItem("nuevoComentario", comentarioDataJSON);
+         
+      // Limpia los campos después de enviar el comentario 
       ratingStars.forEach(star => star.classList.remove('checked'));
       comentarioTexto.value = '';
-    });
-
-
-
+    });  
