@@ -1,6 +1,7 @@
 const DATA_URL = `https://japceibal.github.io/emercado-api/products/${localStorage.getItem("clickedItemId")}.json`;
 const COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("clickedItemId")}.json`;
 
+const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || []
     
 fetch(DATA_URL)
     .then(response => response.json())
@@ -31,9 +32,6 @@ fetch(DATA_URL)
                 });
     
 
-
-
-
 fetch(COMMENTS_URL)
     .then(response => response.json())
     .then(data => {
@@ -59,24 +57,25 @@ fetch(COMMENTS_URL)
 
         const nuevoComentarioJSON = localStorage.getItem("nuevoComentario");
         const nuevoComentario = JSON.parse(nuevoComentarioJSON);
-        
-        let starsHTML = '';
-        for (let i = 0; i < nuevoComentario.rating; i++) {
-        starsHTML += '<span class="fa fa-star checked"></span>';
-        }
-        for (let i = nuevoComentario.rating; i < 5; i++) {
-        starsHTML += '<span class="fa fa-star"></span>';
-        }
-        
-        
-        if(nuevoComentario.id === localStorage.getItem("clickedItemId")){
 
-            comments.innerHTML += `
-            <p><strong>${nuevoComentario.usuario}</strong> - ${nuevoComentario.fecha} - ${starsHTML}</p>
-            <p>${nuevoComentario.comentario}</p><hr>
-            `; 
-        }     
-        
+        for(let j = 0; j < nuevoComentario.length; j++) {
+          let starsHTML = '';
+          for (let i = 0; i < nuevoComentario[j].rating; i++) {
+          starsHTML += '<span class="fa fa-star checked"></span>';
+          }
+
+          for (let i = nuevoComentario[j].rating; i < 5; i++) {
+          starsHTML += '<span class="fa fa-star"></span>';
+          }
+
+          if(nuevoComentario[j].id === localStorage.getItem("clickedItemId")){
+  
+              comments.innerHTML += `
+              <p><strong>${nuevoComentario[j].usuario}</strong> - ${nuevoComentario[j].fecha} - ${starsHTML}</p>
+              <p>${nuevoComentario[j].comentario}</p><hr>
+              `; 
+          }     
+        }
     })
     .catch(error => {
         console.error("Error al cargar comentarios:", error);
@@ -131,10 +130,15 @@ fetch(COMMENTS_URL)
             id: ID,
         };       
 
-        const comentarioDataJSON = JSON.stringify(comentarioData);
+        arregloComentarios.push(comentarioData)
+        console.log(arregloComentarios)
+
+        const comentarioDataJSON = JSON.stringify(arregloComentarios);
+        console.log(comentarioDataJSON)
         localStorage.setItem("nuevoComentario", comentarioDataJSON);
          
       // Limpia los campos después de enviar el comentario 
       ratingStars.forEach(star => star.classList.remove('checked'));
       comentarioTexto.value = '';
+      location.reload()
     });  
