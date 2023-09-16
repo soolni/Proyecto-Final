@@ -131,10 +131,8 @@ fetch(COMMENTS_URL)
         };       
 
         arregloComentarios.push(comentarioData)
-        console.log(arregloComentarios)
 
         const comentarioDataJSON = JSON.stringify(arregloComentarios);
-        console.log(comentarioDataJSON)
         localStorage.setItem("nuevoComentario", comentarioDataJSON);
          
       // Limpia los campos después de enviar el comentario 
