@@ -62,7 +62,8 @@ if (localStorage.getItem("usuario")) {
   ul.appendChild(btnSal)
 
   btnSal.addEventListener("click", () => {
-    localStorage.removeItem("autenticado")
-    localStorage.removeItem("usuario")
+    localStorage.removeItem("autenticado");
+    localStorage.removeItem("usuario");
+    window.location.href = "login.html"
   })
 }
