@@ -1,7 +1,3 @@
-if (!localStorage.getItem("autenticado")) {
-    window.location.href = "login.html";
-}
-
 document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
