@@ -55,7 +55,6 @@ if (localStorage.getItem("usuario")) {
   item.appendChild(link);
 
   const btnSal = document.createElement("a")
-  btnSal.setAttribute("href", "../login.html")
   btnSal.classList.add("nav-link")
   btnSal.innerHTML = "Salir"
   const ul = document.querySelector(".navbar-nav")
