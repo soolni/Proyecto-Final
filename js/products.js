@@ -70,10 +70,9 @@ function showProductList(arregloActualProd) {
         <div class="item">
           <img src="${item.image}">
           <div class="details">
-            ID: ${item.id}<br>
-            Nombre: ${item.name}<br>
+            <span class="nombreProd">${item.name}<br></span>
             Descripción: ${item.description}<br>
-            Precio: ${item.cost} ${item.currency}<br>
+            <span class="precioProd">Precio: ${item.cost} ${item.currency}<br></span>
             Unidades vendidas: ${item.soldCount}<br>
           </div>
         </div>

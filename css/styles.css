@@ -15,10 +15,22 @@
   margin-bottom: 10px; 
 }
 
+input#buscador {
+  border: none;
+}
+
 .item img {
   width: 100px; 
   height: auto; 
   margin-right: 10px; 
+}
+
+span.nombreProd {
+  font-size: xx-large;
+}
+
+span.precioProd {
+  font-size: larger;
 }
 
 
