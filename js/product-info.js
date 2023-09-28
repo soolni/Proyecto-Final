@@ -176,11 +176,10 @@ fetch(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.get
   
     // recargar
     window.location.href = "product-info.html";
-    
   });
-});
+  });
   })
   .catch(error => {
     console.error('Error:', error);
-  });
+});
 
