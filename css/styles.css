@@ -292,3 +292,20 @@ a.custom-card:hover {
 .logoJap{
   float: right;
 }
+
+#related {
+  display: flex;
+  flex-direction: row;
+}
+#related-card{
+  border: solid gray 2px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-right: 15px;
+  text-align: center;
+  
+}
+#related img{
+  width: 250px;
+}
+
