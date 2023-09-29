@@ -140,3 +140,50 @@ fetch(COMMENTS_URL)
       comentarioTexto.value = '';
       location.reload()
     });  
+
+//entrega 4
+fetch(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`)
+  .then(response => response.json())
+  .then(data => {
+    // json
+    const products = data.products;
+    const randomProducts = [];
+    //para que muestre hasta 3 productos aleatoriamente de la misma categoria
+    while (randomProducts.length < 3 && randomProducts.length < products.length) {
+      const randomIndex = Math.floor(Math.random() * products.length);
+      const randomProduct = products[randomIndex];
+
+      // para que no se repitan productos
+      if (!randomProducts.includes(randomProduct)) {
+        randomProducts.push(randomProduct);
+      }
+    }
+
+    // mostrar products relacionados
+    const relatedElement = document.getElementById("related");
+    let html = "";
+
+    randomProducts.forEach(product => {   
+      html += `<div id="related-card" class="cursor-active" data-id="${product.id}">
+                 <img src="${product.image}" alt="${product.name}">
+                 <h5>${product.name}</h5>
+               </div>`;          
+    });     
+    relatedElement.innerHTML = html;        
+
+    //redireccionar
+    const cards = document.querySelectorAll("#related-card");
+    cards.forEach(card => {
+    card.addEventListener("click", () => {
+    const clickedItemId = card.getAttribute("data-id");
+    // guardar nuevo id en local
+    localStorage.setItem("clickedItemId", clickedItemId);
+
+    // recargar
+    window.location.href = "product-info.html";
+  });
+  });
+  })
+  .catch(error => {
+    console.error('Error:', error);
+});

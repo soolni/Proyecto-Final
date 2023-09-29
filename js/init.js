@@ -46,23 +46,26 @@ let getJSONData = function(url){
     });
 }
 
-if (localStorage.getItem("usuario")) {
-  const item = document.querySelectorAll(".nav-item")[3];
-  const link = document.createElement("a");
-  link.classList.add("nav-link");
-  link.setAttribute("href", "my-profile.html");
-  link.innerHTML = `${localStorage.getItem("usuario")}`;
-  item.appendChild(link);
+const userButton = document.getElementById("menuButton");
+const menu = document.getElementById("menu");
+const username = localStorage.getItem("usuario");
+const menuLogoutClick = document.getElementById("menuLogoutClick");
 
-  const btnSal = document.createElement("a")
-  btnSal.classList.add("nav-link")
-  btnSal.innerHTML = "Salir"
-  const ul = document.querySelector(".navbar-nav")
-  ul.appendChild(btnSal)
+// nombre de usuario en boton
+userButton.innerText = username;
 
-  btnSal.addEventListener("click", () => {
-    localStorage.removeItem("autenticado");
-    localStorage.removeItem("usuario");
-    window.location.href = "login.html"
-  })
-}
+userButton.addEventListener("click", function() {
+  // Verificar el estado actual del menú
+  const isMenuVisible = menu.style.display === "block";
+
+  // Mostrar u ocultar el menú según su estado actual
+  menu.style.display = isMenuVisible ? "none" : "block";
+});
+
+menuLogoutClick.addEventListener("click", function() {
+  // borrar datos almacenados
+  localStorage.removeItem("usuario");
+
+  // redireccionar
+  window.location.href = "login.html";
+});
