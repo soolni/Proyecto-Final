@@ -336,6 +336,7 @@ a.custom-card:hover {
   cursor: pointer;
   outline: none;
   color: whitesmoke ;
+  margin-top: 5px;
 }
 
 .switch:hover {
@@ -353,5 +354,6 @@ a.custom-card:hover {
 body.dark {
   background: #161D31;
   color: whitesmoke
+
 }
 
