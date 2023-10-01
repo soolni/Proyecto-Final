@@ -333,9 +333,7 @@ a.custom-card:hover {
   background: #343d58;
   border-radius: 1000px;
   border: none;
-  position: relative;
   cursor: pointer;
-  display: flex;
   outline: none;
   color: whitesmoke ;
 }
