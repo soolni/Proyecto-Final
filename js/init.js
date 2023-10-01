@@ -75,7 +75,13 @@ menuLogoutClick.addEventListener("click", function() {
 const btnSwitch = document.querySelector('#switch');
 
 btnSwitch.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
+  if (document.querySelector("body").className == "dark") {
+    document.body.className = "light"
+    document.querySelector(".fas.fa-sun").classList.replace("fa-sun", "fa-moon")
+  } else {
+    document.body.className = "dark"
+    document.querySelector(".fas.fa-moon").classList.replace("fa-moon", "fa-sun")
+  }
   
   //Guardar en localSotage
   if (localStorage.getItem("autenticado") && document.body.classList.contains('dark')){

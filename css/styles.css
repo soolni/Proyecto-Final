@@ -331,11 +331,15 @@ a.custom-card:hover {
 
 .switch {
   background: #343d58;
-  border-radius: 1000px;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
   border: none;
   cursor: pointer;
   outline: none;
   color: whitesmoke ;
+  display: inline-block;
+  margin-top: 2px;
 }
 
 .switch:hover {
@@ -355,3 +359,7 @@ body.dark {
   color: whitesmoke
 }
 
+body.light {
+  background-color: white;
+  color: black;
+}
