@@ -5,6 +5,11 @@
   font-family: 'Verdana', serif !important;
 }
 
+body {
+  background: white;
+  transition: .3s ease all;
+}
+
 .item {
   margin-top: 15px;
   border: 1px solid #ccc; 
@@ -321,3 +326,34 @@ a.custom-card:hover {
 #related img{
   width: 250px;
 }
+
+/*Estilos fondo oscuro*/
+
+.switch {
+  background: #343d58;
+  border-radius: 1000px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  outline: none;
+  color: whitesmoke ;
+}
+
+.switch:hover {
+  background: orange;
+}
+
+.switch span {
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  background: none;
+  color: #fff;
+}
+
+body.dark {
+  background: #161D31;
+  color: whitesmoke
+}
+

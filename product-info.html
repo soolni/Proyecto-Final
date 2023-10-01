@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -43,6 +44,12 @@
                 </ul>
             </div>
           </li>
+          <!--Boton modo-->
+          <li>
+            <button class="switch" id="switch">
+              Modo<span><i class="fas fa-moon"></i></span>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -68,6 +75,7 @@
       </div>
       <div class="nuevo-comentario">
         <h3>Agregar comentario</h3>
+        <br>
         <div class="rating">
           <span class="fa fa-star" data-rating="1"></span>
           <span class="fa fa-star" data-rating="2"></span>
@@ -75,6 +83,7 @@
           <span class="fa fa-star" data-rating="4"></span>
           <span class="fa fa-star" data-rating="5"></span>
         </div>
+        <br>
         <textarea class="comentario-texto" placeholder="Escribe tu comentario aquí"></textarea>
         <button class="btn-comentar">Comentar</button>
       </div>
