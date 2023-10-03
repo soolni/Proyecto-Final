@@ -11,7 +11,7 @@ contenedor.innerHTML += `
     <div class="col"><img class="" src="${data.articles[0].image}" style="width: 4rem"></div>
     <div class="col">${data.articles[0].name}</div>
     <div class="col">USD ${data.articles[0].unitCost}</div>
-    <div class="col"><input id="inp" type="number" style="width:60px" value="${data.articles[0].count}"></div>
+    <div class="col"><input id="inp" type="number" min="0" style="width:60px" value="${data.articles[0].count}"></div>
     <div id="subtotal" class="col"></div>
     <div class="col"></div>
 </div>
