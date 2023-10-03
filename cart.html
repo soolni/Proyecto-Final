@@ -46,9 +46,66 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <br>
+      <figure class="text-center">
+        <blockquote class="blockquote">
+          <h1>Carritos de compras</h1>
+        </blockquote>
+      </figure>
+      <br><br>
+      <h3>Artículos a comprar</h3>
+      <br>
+      <div id="carrito" class="container text-center">
+        <div class="row">
+          <div class="col"></div>
+          <div class="col"><strong>Nombre</strong></div>
+          <div class="col"><strong>Costo</strong></div>
+          <div class="col"><strong>Cantidad</strong></div>
+          <div class="col"><strong>Subtotal</strong></div>
+          <div class="col"></div>
+        </div>
+        <hr style="border: 1px solid black;">
+        <div class="container text-center"></div>
       </div>
+      <hr><br>
+      <div>
+        <hr>
+        <h3>Tipo de envío</h3>
+        <br>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" name="radionExam" id="option1">
+          <label for="option1">Premium 2 a 5 días (15%)</label>
+        </div>
+
+        <div class="form-check">
+          <input type="radio" class="form-check-input" name="radionExam" id="option2">
+          <label for="option2">Express 5 a 8 días (7%)</label>
+        </div>  
+
+        <div class="form-check">
+          <input type="radio" class="form-check-input" name="radionExam" id="option3">
+          <label for="option3">Standard 12 a 15 días (5%)</label>
+        </div>
+      </div>
+      <br><br>
+      <div class="form-group">
+        <div class="row">
+          <h3>Dirección de envío</h3>
+          <div class="col-6">
+            <label for="calle" class="">Calle:</label> <input class="form-control" type="text" name="calle">
+          </div>
+          <div class="col-4">
+            <label for="numero" class="">Número:</label> <input class="form-control" type="text" name="numero">
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="esquina" class="">Esquina:</label> <input class="form-control" type="text" name="esquina">
+        </div>
+      </div>
+      <br><br><hr>
+    </div>
+
     </div>
   </main>
   <footer class="text-muted">
