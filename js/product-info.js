@@ -1,27 +1,44 @@
 const DATA_URL = `https://japceibal.github.io/emercado-api/products/${localStorage.getItem("clickedItemId")}.json`;
 const COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("clickedItemId")}.json`;
 
-const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || []
-    
+const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || [];
+
+const arregloProductos = JSON.parse(localStorage.getItem('productosCarrito')) || [];
+
+function agregarObjeto(objeto) {
+  const objetoExistente = arregloProductos.find(obj => obj.id === objeto.id);
+
+  if (objetoExistente) {
+    // Si ya existe, aumenta el contador en el objeto existente
+    objetoExistente.count++;
+  } else {
+    // Si no existe, agrega el objeto al arreglo
+    objeto.count = 1;
+    arregloProductos.push(objeto);
+  }
+}                  
+
 fetch(DATA_URL)
     .then(response => response.json())
     .then(data=>{
         const productElement = document.querySelector(".product-info")
 
         productElement.innerHTML = `
-                <br>
-                <h2>${data.name}</h2>
-                <br><hr>
+                <div class="producto">
+                <h2 class="productName">${data.name}</h2>
+                <button class="btn btn-primary comprar" id="comprar" type="button">Comprar</button>
+                </div>
+                <hr>
 
                 <p><strong>Precio</strong><br>${data.currency +' '+ data.cost}</p>
 
-                <p><strong>Descripcion</strong><br>${data.description}</p>
+                <p><strong>Descripción</strong><br>${data.description}</p>
 
-                <p><strong>Categoria</strong><br>${data.category}</p>
+                <p><strong>Categoría</strong><br>${data.category}</p>
 
                 <p><strong>Cantidad de vendidos</strong><br>${data.soldCount}</p>
 
-                <p><strong>Imagenes ilustrativas</strong></p>
+                <p><strong>Imágenes ilustrativas</strong></p>
                 <br>
                 <br>
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -48,6 +65,22 @@ fetch(DATA_URL)
                 <span class="visually-hidden">Next</span>
                 </button>
                 </div>`;                              
+
+                console.log(data)
+                document.getElementById("comprar").addEventListener("click", () => {
+                  const producto = {
+                    id: data.id,
+                    count: 1,
+                    currency: data.currency,
+                    image: data.images[0],
+                    name: data.name,
+                    cost: data.cost,
+                  };
+                  console.log(producto)
+                  agregarObjeto(producto)
+
+                  localStorage.setItem('productosCarrito', JSON.stringify(arregloProductos))
+                })
                 });
     
 

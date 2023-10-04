@@ -25,6 +25,23 @@ function actualizarSubtotal() {
     }
 document.querySelector('#inp').addEventListener('input', actualizarSubtotal);
 actualizarSubtotal();
+
+const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
+
+console.log(productosCarrito)
+
+productosCarrito.forEach(producto => {
+    contenedor.innerHTML +=`
+    <div class="row">
+    <div class="col"><img class="" src="${producto.image}" style="width: 4rem"></div>
+    <div class="col">${producto.name}</div>
+    <div class="col">USD ${producto.cost}</div>
+    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}"></div>
+    <div class="A${producto.id} col">${producto.currency} ${producto.cost * producto.count}</div>
+    <div class="col"></div>
+</div>
+    `
+});
 })
 
 

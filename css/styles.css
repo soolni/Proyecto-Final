@@ -359,3 +359,17 @@ body.dark {
   color: whitesmoke
 }
 
+.productName {
+  width: 50%;
+  margin-top: 1rem;
+}
+
+.producto {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comprar {
+  height: 3rem;
+  align-self: center;
+}
