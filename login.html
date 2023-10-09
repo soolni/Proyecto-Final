@@ -13,32 +13,43 @@
 
 <body class="bodyLogin">
 
-  <div class="logos">
+  <div class="row">
 
-    <img class="eMercado" src="img/emerca.png" alt="">
+    <div class="position-absolute top-0 start-0" style="width: 20%;">
+      <img class="eMercado img-fluid" src="img/emerca.png" alt="">
+    </div>
 
-    <a href="https://jovenesaprogramar.edu.uy/" target="_blank"><img class="logoJap" src="img/logoJAP.png" alt=""></a>
-    
   </div>
 
   <main class="mt-5">
-    
 
-    <form id="formularioLogin" class="formularioLogin">
-        
-      <h2>Iniciar Sesión</h2>
-      <div class="containerLogin">
-        <input id="usuario" type="email" placeholder="Correo Electronico" required>
-        <input id="contraseña" type="password" placeholder="Contraseña" required>
-        <button id="access" type="submit">Acceder</button>
-        <p id="basesycond">Al iniciar sesion acepta automaticamente las cookies.</p>
-      </div>
-    </form>
+    <div class="row">
+      <div class="position-absolute top-50 start-50 translate-middle col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-4 col-xxl-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <form id="formularioLogin">
+              <h2 class="card-title">Iniciar Sesion</h2>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control usuario" id="floatingInput" placeholder="name@example.com" required>
+                <label for="floatingInput">Dirección de correo</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control contraseña" id="floatingPassword" placeholder="Password" required>
+                <label for="floatingPassword">Contraseña</label>
+              </div>
+              <br>
+              <input class="btn btn-primary" id="access" type="submit" value="Acceder">
+              <p>Al iniciar sesion acepta automaticamente las cookies.</p>
+          </form>
+          </div>
+        </div>
+    </div>     
+  </div>  
         
   </main>
 
 
-  <footer class="text-jap">
+  <footer class="text-jap mt-5">
     <div id="container" class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>

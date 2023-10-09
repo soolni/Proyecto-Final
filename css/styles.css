@@ -227,6 +227,7 @@ a.custom-card:hover {
 /* Aca empieza la modificacion del login.html */
 /*                                            */ 
 .bodyLogin{
+  height: 100vh;
   background-image: linear-gradient(140deg, #ffffff, #f3dfba, #f5d69e, #f0c16a, #f3b94d, #faaf23, #f86e55, #f73838);
   /*color: #9a7bf0;*/
   background-size: 400%;
@@ -245,86 +246,12 @@ a.custom-card:hover {
   }
 }
 
-.containerLogin{
-  width: 100%;
-  padding: 15px;
-}
-
-.containerLogin input{
-  font-size: 20px;
-  width: 82%;
-  margin-left: 9%;
-  padding: 10px;
-  border: 1px solid rgb(182, 179, 179);
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-#access{
-  border: none;
-  width: 82%;
-  margin-left: 9%;
-  color: whitesmoke;
-  font-size: 20px;
-  background-color: #08497e;
-  padding: 15px 20px;
-  border-radius: 10px;
-}
-
-#access:hover{
-  background-color: #062c4b;
-  transition: ease 1s;
-}
-
-.formularioLogin{
-  padding: 25px;
-  margin: auto;
-  width: 24%;
-  border-radius: 10px;
-  background:whitesmoke;
-  margin-top: 95px;
-}
-
-.formularioLogin h2{
-  text-align: center;
-  color: #272727;
-  font-size: 40px;
-}
-
-#basesycond{
-  text-align: center;
-}
-
 #container {
   color: #272727;
   max-width: 40rem;
   background-color: rgb(255, 255, 255);
   border-radius: 7px;
   text-shadow: 1px 1px 2px rgb(114, 113, 113);
-}
-
-.logos img{
-  width: 270px;
-}
-.logoJap{
-  float: right;
-}
-
-#related {
-  display: flex;
-  flex-direction: row;
-}
-
-#related-card{
-  border: solid gray 2px;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-right: 15px;
-  text-align: center;
-}
-
-#related img{
-  width: 250px;
 }
 
 /*Estilos fondo oscuro*/
