@@ -218,7 +218,7 @@ fetch(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.get
 
     randomProducts.forEach(product => {   
       html += `<div id="related-card" class="cursor-active" data-id="${product.id}">
-                 <img src="${product.image}" alt="${product.name}">
+                 <img class="img-fluid" src="${product.image}" alt="${product.name}">
                  <h5>${product.name}</h5>
                </div>`;          
     });     
