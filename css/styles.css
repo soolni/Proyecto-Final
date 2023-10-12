@@ -301,4 +301,14 @@ body.dark {
   align-self: center;
 }
 
-
+#related {
+  display: flex;
+  flex-direction: row;
+}
+#related-card{
+  border: #525553 3px solid;
+  overflow: hidden;
+  margin-right: 10px;
+  border-radius: 25px;
+  text-align: center;
+}
