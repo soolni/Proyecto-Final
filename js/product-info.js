@@ -68,16 +68,17 @@ fetch(DATA_URL)
 
                 console.log(data)
                 document.getElementById("comprar").addEventListener("click", () => {
-                  const producto = {
-                    id: data.id,
-                    count: 1,
-                    currency: data.currency,
-                    image: data.images[0],
-                    name: data.name,
-                    cost: data.cost,
-                  };
-                  console.log(producto)
-                  agregarObjeto(producto)
+                  const articles = 
+                          {
+                              "id": data.id,
+                              "name": data.name,
+                              "count": 1,
+                              "unitCost": data.cost,
+                              "currency": data.currency,
+                              "image": data.images[0]
+                          };
+                  console.log(articles)
+                  agregarObjeto(articles)
 
                   localStorage.setItem('productosCarrito', JSON.stringify(arregloProductos))
                 })
