@@ -66,7 +66,6 @@ fetch(DATA_URL)
                 </button>
                 </div>`;                              
 
-                console.log(data)
                 document.getElementById("comprar").addEventListener("click", () => {
                   const articles = 
                           {
