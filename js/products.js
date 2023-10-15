@@ -67,9 +67,11 @@ function showProductList(arregloActualProd) {
     ((maxPrice == undefined) || (maxPrice != undefined & parseInt(item.cost) <= maxPrice))){
       
       contentToAppend += `
-        <div class="item">
-          <img src="${item.image}">
-          <div class="details">
+        <div class="row item">
+          <div class="col-sm-12 col-xl-2 col-xxl-2 col-lg-2 col-md-2 p-0 centrado">
+            <img src="${item.image}">
+          </div>
+          <div class="col-sm-12 col-xl-8 col-xxl-8 col-lg-4 col-md-8 details">
             <span class="nombreProd">${item.name}<br></span>
             Descripción: ${item.description}<br>
             <span class="precioProd">Precio: ${item.cost} ${item.currency}<br></span>
