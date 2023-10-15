@@ -25,9 +25,9 @@ input#buscador {
 }
 
 .item img {
-  width: 100px; 
+  width: 95%; 
   height: auto; 
-  margin-right: 10px; 
+  margin: 2%; 
 }
 
 span.nombreProd {
@@ -42,6 +42,11 @@ span.precioProd {
 
 .rangePrice {
   min-width: 85px;
+}
+
+.centrado {
+  justify-content: center;
+  text-align: center;
 }
 
 .jumbotron .display-4{
