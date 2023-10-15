@@ -36,12 +36,12 @@ productosCarrito.forEach(producto => {
     <div class="col"><img class="" src="${producto.image}" style="width: 4rem"></div>
     <div class="col">${producto.name}</div>
     <div class="col">USD ${producto.unitCost}</div>
-    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotal(${producto.id})"></div>
+    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotalProd(${producto.id})"></div>
     <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
     <div class="col"></div>
     </div>`;
 });
-    function actualizarSubtotal(id) {
+    function actualizarSubtotalProd(id) {
         const input = document.getElementById(id);
         const subtotal = document.getElementById(`subtotal_${id}`);
         const producto = productosCarrito.find(p => p.id === id);
