@@ -25,19 +25,29 @@ input#buscador {
 }
 
 .item img {
-  width: 100px; 
+  width: 95%; 
   height: auto; 
-  margin-right: 10px; 
+  margin: 2%; 
 }
 
 span.nombreProd {
-  font-size: xx-large;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 span.precioProd {
-  font-size: larger;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
+.rangePrice {
+  min-width: 85px;
+}
+
+.centrado {
+  justify-content: center;
+  text-align: center;
+}
 
 .jumbotron .display-4{
   font-weight: bold;
@@ -311,4 +321,9 @@ body.dark {
   margin-right: 10px;
   border-radius: 25px;
   text-align: center;
+}
+
+.infoCom {
+  display: flex;
+  flex-wrap: wrap;
 }

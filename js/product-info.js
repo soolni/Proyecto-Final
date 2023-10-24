@@ -66,7 +66,6 @@ fetch(DATA_URL)
                 </button>
                 </div>`;                              
 
-                console.log(data)
                 document.getElementById("comprar").addEventListener("click", () => {
                   const articles = 
                           {
@@ -92,8 +91,8 @@ fetch(COMMENTS_URL)
 
         data.forEach(function (e) {
             const comentario = document.createElement("p");
-            comentario.innerHTML = `<strong>${e.user}</strong> - ${e.dateTime} - 
-              <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>`;
+            comentario.innerHTML = `<div class="infoCom"><div><strong>${e.user}</strong> - ${e.dateTime} &nbsp </div><div>
+              <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div></div>`;
 
             const stars = comentario.querySelectorAll("span.fa-star");
             for (let i = 0; i < e.score; i++) {

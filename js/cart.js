@@ -1,8 +1,10 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
+const contenedor = document.querySelector('#carrito');
+
+// Cargar en carrito articulo pre-cargado y actualizar subtotal
 fetch(URL_carrito)
 .then(response => response.json())
 .then(data => {
-const contenedor = document.querySelector('#carrito');
 contenedor.innerHTML += `
 <div class="row">
     <div class="col"><img class="" src="${data.articles[0].image}" style="width: 4rem"></div>
@@ -24,10 +26,10 @@ document.getElementById("inp").addEventListener("input", actualizarSubtotal);
 
 })
 
+// Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
-console.log(productosCarrito)
 
-
+// Cargar productos comprados en carrito y actualizar subtotal
 productosCarrito.forEach(producto => {
     const container = document.querySelector('#carrito');
     container.innerHTML +=`
@@ -53,6 +55,7 @@ productosCarrito.forEach(producto => {
 //ENTREGA 6
 
 //PAUTA 2
+// Deshabilitar otro medio de pago según selección de checkbox
 function payMethod(){
 const radioUno = document.querySelector(".metodo-pago-uno");
 const radioDos = document.querySelector(".metodo-pago-dos");
@@ -89,6 +92,7 @@ if(radioDos.checked){
 
 payMethod();
 
+
 //Desafiate 
 function borrar(clase){
     const clases = clase.className.split(' ');
@@ -100,3 +104,4 @@ function borrar(clase){
     productos.splice(posicion, 1)
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
 }
+
