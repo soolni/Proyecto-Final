@@ -104,6 +104,79 @@
       </div>
       <br><br><hr>
     </div>
+    <div id="costos">
+      <h3>Costos</h3>
+      <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-10"><h5 class="text-secondary">Subtotal</h5></div>
+              <div class="col text-end text-secondary">USD999</div>
+            </div>
+            <p class="text-secondary">Costo unitario del producto por cantidad</p>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-10"><h5 class="text-secondary">Costo de envio</h5></div>
+              <div class="col text-end text-secondary">USD999</div>
+            </div>
+            <p class="text-secondary">Segun el tipo de envio</p>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-10"><h5 class="text-secondary">Total($)</h5></div>
+              <div class="col text-end">USD999</div>
+            </div>
+          </li>
+      </ul>
+    </div>
+    <br><hr>
+    <div id="formaPago">
+      <h3>Forma de pago</h3>
+      <p>No ha seleccionado <a href="#mi-modal" data-bs-toggle="modal">seleccionar</a></p>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="button">Finalizar compra</button>
+      </div>
+
+      <div class="modal" id="mi-modal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content p-4">
+            <h3>Forma de pago</h3>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input metodo-pago-uno" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="payMethod()" checked>
+              <label class="form-check-label" for="flexRadioDefault1">Tarjeta de credito</label>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <label for="calle" class="">Num de tarjeta</label> <input class="form-control tarjeta-credito pe-none" type="text" name="calle">
+              </div>
+              <div class="col-4">
+                <label for="numero" class="">CVV</label> <input class="form-control tarjeta-credito pe-none" type="text" name="numero">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="esquina" class="">Vencimiento(MM/AA)</label> <input class="form-control tarjeta-credito pe-none" type="date" name="esquina">
+              </div>
+            </div>
+            <br>
+            <div class="form-check">
+              <input class="form-check-input metodo-pago-dos" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="payMethod()">
+              <label class="form-check-label" for="flexRadioDefault2">Transferencia bancaria</label>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <label for="esquina" class="">Numero de cuenta</label> <input class="form-control transferencia" type="text" name="esquina">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
     </div>
   </main>

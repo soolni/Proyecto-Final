@@ -49,3 +49,45 @@ productosCarrito.forEach(producto => {
         subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
     }
        
+
+
+//ENTREGA 6
+
+//PAUTA 2
+function payMethod(){
+const radioUno = document.querySelector(".metodo-pago-uno");
+const radioDos = document.querySelector(".metodo-pago-dos");
+const credito = document.querySelectorAll('.tarjeta-credito');
+const transferencia = document.querySelector('.transferencia')
+if(radioUno.checked){
+    credito.forEach(elemento =>{
+        elemento.disabled = false;
+        elemento.classList.toggle('pe-none');
+        elemento.removeAttribute("aria-disabled")
+        elemento.value = ""
+        elemento.style.backgroundColor = 'white'
+    })
+    transferencia.disabled = true;
+    transferencia.classList.add('pe-none');
+    transferencia.setAttribute("aria-disabled", "true")
+    transferencia.value = ""
+    transferencia.style.backgroundColor = 'grey'
+}
+if(radioDos.checked){
+    transferencia.classList.toggle('pe-none');
+    transferencia.removeAttribute("aria-disabled");
+    transferencia.disabled = false;
+    transferencia.style.backgroundColor = 'white'
+    credito.forEach(elemento =>{
+        elemento.disabled = true;
+        elemento.classList.add('pe-none');
+        elemento.setAttribute("aria-disabled", "true")
+        elemento.value = ""
+        elemento.style.backgroundColor = 'grey'
+    })
+}
+}
+
+payMethod();
+
+//
