@@ -1,6 +1,7 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 
+// Cargar en carrito articulo pre-cargado y actualizar subtotal
 fetch(URL_carrito)
 .then(response => response.json())
 .then(data => {
@@ -25,10 +26,10 @@ document.getElementById("inp").addEventListener("input", actualizarSubtotal);
 
 })
 
+// Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
-console.log(productosCarrito)
 
-
+// Cargar productos comprados en carrito y actualizar subtotal
 productosCarrito.forEach(producto => {
     const container = document.querySelector('#carrito');
     container.innerHTML +=`
@@ -36,12 +37,12 @@ productosCarrito.forEach(producto => {
     <div class="col"><img class="" src="${producto.image}" style="width: 4rem"></div>
     <div class="col">${producto.name}</div>
     <div class="col">USD ${producto.unitCost}</div>
-    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotalProd(${producto.id})"></div>
+    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotal(${producto.id})"></div>
     <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
     <div class="col"></div>
     </div>`;
 });
-    function actualizarSubtotalProd(id) {
+    function actualizarSubtotal(id) {
         const input = document.getElementById(id);
         const subtotal = document.getElementById(`subtotal_${id}`);
         const producto = productosCarrito.find(p => p.id === id);
@@ -54,6 +55,7 @@ productosCarrito.forEach(producto => {
 //ENTREGA 6
 
 //PAUTA 2
+// Deshabilitar otro medio de pago según selección de checkbox
 function payMethod(){
 const radioUno = document.querySelector(".metodo-pago-uno");
 const radioDos = document.querySelector(".metodo-pago-dos");
@@ -90,4 +92,3 @@ if(radioDos.checked){
 
 payMethod();
 
-//
