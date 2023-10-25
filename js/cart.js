@@ -8,13 +8,15 @@ fetch(URL_carrito)
 .then(response => response.json())
 .then(data => {
 contenedor.innerHTML += `
-<div class="row">
+<div id="container-${data.id}" class="row">
     <div class="col"><img class="" src="${data.articles[0].image}" style="width: 4rem"></div>
     <div class="col">${data.articles[0].name}</div>
     <div class="col">USD ${data.articles[0].unitCost}</div>
     <div class="col"><input id="inp" type="number" min="0" style="width:60px" value="${data.articles[0].count}"></div>
     <div id="subtotal" class="col">${data.articles[0].currency} ${data.articles[0].unitCost}</div>
-    <div class="col"><span class="bi bi-trash"></span></div>
+    <div class="col"><span class="${data.id} bi bi-trash" onclick="borrarProductoPrecargado(this)"></span></div>
+    <br><br>
+    <hr>
 </div>
 `
 sumaSubtotal += data.articles[0].unitCost;
@@ -47,6 +49,8 @@ productosCarrito.forEach(producto => {
     <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotal(${producto.id})"></div>
     <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
     <div class="col"><span class="${producto.id} bi bi-trash" onclick="borrar(this)"></span></div>
+    <br><br>
+    <hr>
     </div>`;
 
     if(producto.currency === 'UYU'){
@@ -123,4 +127,11 @@ function borrar(clase){
     const posicion = productos.findIndex(producto => producto.id === parseInt(primeraClase));
     productos.splice(posicion, 1)
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
+}
+
+function borrarProductoPrecargado(clase){
+    const clases = clase.className.split(' ');
+    const primeraClase = clases[0];
+    const div = document.getElementById(`container-${primeraClase}`)
+    div.remove()
 }
