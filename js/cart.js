@@ -1,5 +1,7 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
+const subtotalTotal = document.getElementById('sumaSubtotal');
+let sumaSubtotal = 0;
 
 // Cargar en carrito articulo pre-cargado y actualizar subtotal
 fetch(URL_carrito)
@@ -15,11 +17,16 @@ contenedor.innerHTML += `
     <div class="col"><span class="bi bi-trash"></span></div>
 </div>
 `
+sumaSubtotal += data.articles[0].unitCost;
+subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
+
 function actualizarSubtotal() {
     const cantidadInp = document.querySelector('#inp');
     const cantidad = cantidadInp.value;
     const subtotal = cantidad * data.articles[0].unitCost;
     document.querySelector('#subtotal').textContent = `USD ${subtotal}`;
+    sumaSubtotal += data.articles[0].unitCost;
+    subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
     }
 
 document.getElementById("inp").addEventListener("input", actualizarSubtotal);
@@ -41,6 +48,15 @@ productosCarrito.forEach(producto => {
     <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
     <div class="col"><span class="${producto.id} bi bi-trash" onclick="borrar(this)"></span></div>
     </div>`;
+
+    if(producto.currency === 'UYU'){
+        sumaSubtotal += producto.unitCost / 40;
+        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
+    } else {
+        sumaSubtotal += producto.unitCost
+        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
+    }
+
 });
     function actualizarSubtotal(id) {
         const input = document.getElementById(id);
@@ -48,10 +64,15 @@ productosCarrito.forEach(producto => {
         const producto = productosCarrito.find(p => p.id === id);
         const nuevoSubtotal = producto.unitCost * input.value;
         subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
+        if(producto.currency === 'UYU'){
+            sumaSubtotal += producto.unitCost / 40;
+            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
+        } else {
+            sumaSubtotal += producto.unitCost;
+            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
+        }
     }
        
-
-
 //ENTREGA 6
 
 //PAUTA 2
@@ -92,7 +113,6 @@ if(radioDos.checked){
 
 payMethod();
 
-
 //Desafiate 
 function borrar(clase){
     const clases = clase.className.split(' ');
@@ -104,4 +124,3 @@ function borrar(clase){
     productos.splice(posicion, 1)
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
 }
-
