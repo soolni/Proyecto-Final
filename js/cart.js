@@ -1,82 +1,28 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
-let sumaSubtotal = 0;
-
-// Cargar en carrito articulo pre-cargado y actualizar subtotal
-fetch(URL_carrito)
-.then(response => response.json())
-.then(data => {
-contenedor.innerHTML += `
-<div id="container-${data.id}" class="row">
-    <div class="col"><img class="" src="${data.articles[0].image}" style="width: 4rem"></div>
-    <div class="col">${data.articles[0].name}</div>
-    <div class="col">USD ${data.articles[0].unitCost}</div>
-    <div class="col"><input id="inp" type="number" min="0" style="width:60px" value="${data.articles[0].count}"></div>
-    <div id="subtotal" class="col">${data.articles[0].currency} ${data.articles[0].unitCost}</div>
-    <div class="col"><span class="${data.id} bi bi-trash" onclick="borrarProductoPrecargado(this)"></span></div>
-    <br><br>
-    <hr>
-</div>
-`
-sumaSubtotal += data.articles[0].unitCost;
-subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-
-function actualizarSubtotal() {
-    const cantidadInp = document.querySelector('#inp');
-    const cantidad = cantidadInp.value;
-    const subtotal = cantidad * data.articles[0].unitCost;
-    document.querySelector('#subtotal').textContent = `USD ${subtotal}`;
-    sumaSubtotal += data.articles[0].unitCost;
-    subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    }
-
-document.getElementById("inp").addEventListener("input", actualizarSubtotal);
-
-})
+const costoEnvio = document.getElementById("costoEnvio")
+const tipoDeEnvio = document.getElementById("tipoDeEnvio")
+const totalCompra = document.getElementById("totalCompra");
 
 // Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
 
-// Cargar productos comprados en carrito y actualizar subtotal
-productosCarrito.forEach(producto => {
-    const container = document.querySelector('#carrito');
-    container.innerHTML +=`
-    <div id="container-${producto.id}" class="row">
-    <div class="col"><img class="" src="${producto.image}" style="width: 4rem"></div>
-    <div class="col">${producto.name}</div>
-    <div class="col">USD ${producto.unitCost}</div>
-    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotal(${producto.id})"></div>
-    <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
-    <div class="col"><span class="${producto.id} bi bi-trash" onclick="borrar(this)"></span></div>
-    <br><br>
-    <hr>
-    </div>`;
+////////////////////
+///// Funciones ///
+//////////////////
 
-    if(producto.currency === 'UYU'){
-        sumaSubtotal += producto.unitCost / 40;
-        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    } else {
-        sumaSubtotal += producto.unitCost
-        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    }
+function actualizarSubtotal(id) {
+    const input = document.getElementById(id);
+    const subtotal = document.getElementById(`subtotal_${id}`);
+    const producto = productosCarrito.find(p => p.id === id);
+    const nuevoSubtotal = producto.unitCost * input.value;
+    subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    prcEnvio();
+    totalTotal();
+}
 
-});
-    function actualizarSubtotal(id) {
-        const input = document.getElementById(id);
-        const subtotal = document.getElementById(`subtotal_${id}`);
-        const producto = productosCarrito.find(p => p.id === id);
-        const nuevoSubtotal = producto.unitCost * input.value;
-        subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
-        if(producto.currency === 'UYU'){
-            sumaSubtotal += producto.unitCost / 40;
-            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-        } else {
-            sumaSubtotal += producto.unitCost;
-            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-        }
-    }
-       
 //ENTREGA 6
 
 //PAUTA 2
@@ -115,8 +61,6 @@ if(radioDos.checked){
 }
 }
 
-payMethod();
-
 //Desafiate 
 function borrar(clase){
     const clases = clase.className.split(' ');
@@ -127,61 +71,92 @@ function borrar(clase){
     const posicion = productos.findIndex(producto => producto.id === parseInt(primeraClase));
     productos.splice(posicion, 1)
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    prcEnvio();
+    totalTotal();
 }
 
-function borrarProductoPrecargado(clase){
-    const clases = clase.className.split(' ');
-    const primeraClase = clases[0];
-    const div = document.getElementById(`container-${primeraClase}`)
-    div.remove()
+function totalSubtotal() {
+    const subtotales = contenedor.querySelectorAll(".subtotal");
+    let total = 0;
+    let precio = 0;
+
+    subtotales.forEach(subtotal => {
+       let texto = subtotal.textContent;
+       let num = parseInt(texto.slice(4));
+
+       if(texto.includes('UYU')) {
+        precio = num / 40;
+       } else {
+        precio = num;
+       }
+
+       total += precio;
+    })
+    total = Math.trunc(total);
+
+    return total
 }
 
+function prcEnvio(){
+    const premium = document.getElementById("option1")
+    const express = document.getElementById("option2")
+    const standard = document.getElementById("option3")
 
+    let total = parseInt(subtotalTotal.textContent.slice(4))
 
+    if (premium.checked){
+       costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.15)}`         
+    } else if (express.checked){
+        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.07)}`
+    } else if (standard.checked) {
+        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.05)}`
+    }
+}
+ 
+function totalTotal() {
+    const num1 = parseInt(subtotalTotal.textContent.slice(4));
+    const num2 = parseInt(costoEnvio.textContent.slice(4));
 
+    let sumaTotal = num1 + num2;
 
+    totalCompra.innerHTML = `USD ${sumaTotal}`;
+}
 
+// Cargar en carrito articulo pre-cargado y actualizar subtotal
+fetch(URL_carrito)
+.then(response => response.json())
+.then(data => {
+    productosCarrito.push(data.articles[0])
+    
+    // Cargar productos comprados en carrito y actualizar subtotal
+    for(let i=0; i<productosCarrito.length; i++) {
+        contenedor.innerHTML +=`
+        <div id="container-${productosCarrito[i].id}" class="row">
+        <div class="col"><img class="" src="${productosCarrito[i].image}" style="width: 4rem"></div>
+        <div class="col">${productosCarrito[i].name}</div>
+        <div class="col">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
+        <div class="col"><input id="${productosCarrito[i].id}" type="number" min="0" style="width:60px" value="${productosCarrito[i].count}" onchange="actualizarSubtotal(${productosCarrito[i].id})"></div>
+        <div class="col subtotal" id="subtotal_${productosCarrito[i].id}">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
+        <div class="col"><span class="${productosCarrito[i].id} bi bi-trash" onclick="borrar(this)"></span></div>
+        <br><br>
+        <hr>
+        </div>`;
+    }
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    totalTotal();
+})
 
+payMethod();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Manejador de eventos a tipos de envio
+const tiposEnvio = tipoDeEnvio.querySelectorAll("input");
+tiposEnvio.forEach(envio => {
+    envio.addEventListener("click", () => {
+        prcEnvio();
+        totalTotal();
+    })
+})
 //PAUTA 3
 
 const inputGroup = document.querySelectorAll('.input-group-envio');
@@ -190,8 +165,6 @@ const formEnvio = document.querySelector('.formulario-envio');
 const inputCalle = document.querySelector('.input-calle');
 const inputNum = document.querySelector('.input-numero');
 const inputEsq = document.querySelector('.input-esquina');
-
-
 
 function envioEsqCheck(){
     const esquina = document.querySelector('.esquina');
@@ -203,6 +176,7 @@ function envioEsqCheck(){
         inputEsq.classList.remove('is-invalid');
     }
 }
+  
 function envioNumCheck(){
     const numero = document.querySelector('.numero');
     if (!inputNum.checkValidity()) {
@@ -263,7 +237,6 @@ function vencimientoTarjCred(){
     }
 }
 
-
 function modal(){
     const transBancaria = document.querySelector('.metodo-pago-dos');
     const tarjCredito = document.querySelector('.metodo-pago-uno');
@@ -292,7 +265,6 @@ function modal(){
     }
 
 }
-
 
 finalizarCompra.addEventListener('click',function(){
     let inputGroupPress = false;
