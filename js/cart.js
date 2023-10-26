@@ -3,6 +3,7 @@ const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
 const costoEnvio = document.getElementById("costoEnvio")
 const tipoDeEnvio = document.getElementById("tipoDeEnvio")
+const totalCompra = document.getElementById("totalCompra");
 
 // Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
@@ -19,6 +20,7 @@ function actualizarSubtotal(id) {
     subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
     prcEnvio();
+    totalTotal();
 }
 
 //ENTREGA 6
@@ -108,10 +110,15 @@ function prcEnvio(){
         costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.05)}`
     }
 }
+ 
+function totalTotal() {
+    const num1 = parseInt(subtotalTotal.textContent.slice(4));
+    const num2 = parseInt(costoEnvio.textContent.slice(4));
 
+    let sumaTotal = num1 + num2;
 
-
-
+    totalCompra.innerHTML = `USD ${sumaTotal}`;
+}
 
 // Cargar en carrito articulo pre-cargado y actualizar subtotal
 fetch(URL_carrito)
@@ -134,6 +141,7 @@ fetch(URL_carrito)
         </div>`;
     }
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    totalTotal();
 })
 
 payMethod();
@@ -143,5 +151,6 @@ const tiposEnvio = tipoDeEnvio.querySelectorAll("input");
 tiposEnvio.forEach(envio => {
     envio.addEventListener("click", () => {
         prcEnvio();
+        totalTotal();
     })
 })
