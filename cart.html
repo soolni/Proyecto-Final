@@ -154,34 +154,39 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content p-4">
             <h3>Forma de pago</h3>
+            <p class="warning-tarjetaCredito d-none d-block" style="color: red;">Seleccione un metodo de pago</p>
             <br>
             <div class="form-check">
-              <input class="form-check-input metodo-pago-uno" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="payMethod()" checked>
+              <input class="input-modal form-check-input metodo-pago-uno" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="payMethod()">
               <label class="form-check-label" for="flexRadioDefault1">Tarjeta de credito</label>
             </div>
             <hr>
             <div class="row">
               <div class="col-6">
-                <label for="calle" class="">Num de tarjeta</label> <input class="form-control tarjeta-credito pe-none" type="text" name="calle">
+                <label for="numero" class="">Num de tarjeta</label> <input class="credito-numero form-control tarjeta-credito pe-none" type="text" name="numero" required>
+                <p class="warning-credito-numero d-none d-block" style="color: red;">Escriba un numero</p>
               </div>
               <div class="col-4">
-                <label for="numero" class="">CVV</label> <input class="form-control tarjeta-credito pe-none" type="text" name="numero">
+                <label for="cvv" class="">CVV</label> <input class="credito-cvv form-control tarjeta-credito pe-none" type="text" name="cvv" required>
+                <p class="warning-credito-cvv d-none d-block" style="color: red;">Escriba su cod. de seguridad</p>
               </div>
             </div>
             <div class="row">
               <div class="col-6">
-                <label for="esquina" class="">Vencimiento(MM/AA)</label> <input class="form-control tarjeta-credito pe-none" type="date" name="esquina">
+                <label for="vencimiento" class="">Vencimiento(MM/AA)</label> <input class="credito-vencimiento form-control tarjeta-credito pe-none" type="date" name="vencimiento" required>
+                <p class="warning-credito-vencimiento d-none d-block" style="color: red;">Seleccione una fecha</p>
               </div>
             </div>
             <br>
             <div class="form-check">
-              <input class="form-check-input metodo-pago-dos" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="payMethod()">
+              <input class="input-modal form-check-input metodo-pago-dos " type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="payMethod()"> 
               <label class="form-check-label" for="flexRadioDefault2">Transferencia bancaria</label>
             </div>
             <hr>
             <div class="row">
               <div class="col-6">
-                <label for="esquina" class="">Numero de cuenta</label> <input class="form-control transferencia" type="text" name="esquina">
+                <label for="trans-numero" class="">Numero de cuenta</label> <input class="transferencia-numero form-control transferencia pe-none" type="text" name="trans-numero">
+                <p class="warning-transferencia-numero d-none d-block" style="color: red;">Escriba un numero</p>
               </div>
             </div>
           </div>
