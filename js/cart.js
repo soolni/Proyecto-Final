@@ -1,8 +1,8 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
-
-let total = 0;
+const costoEnvio = document.getElementById("costoEnvio")
+const tipoDeEnvio = document.getElementById("tipoDeEnvio")
 
 // Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
@@ -18,6 +18,7 @@ function actualizarSubtotal(id) {
     const nuevoSubtotal = producto.unitCost * input.value;
     subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    prcEnvio();
 }
 
 //ENTREGA 6
@@ -72,6 +73,7 @@ function borrar(clase){
 
 function totalSubtotal() {
     const subtotales = contenedor.querySelectorAll(".subtotal");
+    let total = 0;
     let precio = 0;
 
     subtotales.forEach(subtotal => {
@@ -91,6 +93,22 @@ function totalSubtotal() {
     return total
 }
 
+function prcEnvio(){
+    const premium = document.getElementById("option1")
+    const express = document.getElementById("option2")
+    const standard = document.getElementById("option3")
+
+    let total = parseInt(subtotalTotal.textContent.slice(4))
+
+    if (premium.checked){
+       costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.15)}`         
+    } else if (express.checked){
+        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.07)}`
+    } else if (standard.checked) {
+        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.05)}`
+    }
+}
+
 
 
 
@@ -99,9 +117,7 @@ function totalSubtotal() {
 fetch(URL_carrito)
 .then(response => response.json())
 .then(data => {
-    console.log(data)
     productosCarrito.push(data.articles[0])
-    console.log(productosCarrito)
     
     // Cargar productos comprados en carrito y actualizar subtotal
     for(let i=0; i<productosCarrito.length; i++) {
@@ -121,3 +137,11 @@ fetch(URL_carrito)
 })
 
 payMethod();
+
+// Manejador de eventos a tipos de envio
+const tiposEnvio = tipoDeEnvio.querySelectorAll("input");
+tiposEnvio.forEach(envio => {
+    envio.addEventListener("click", () => {
+        prcEnvio();
+    })
+})
