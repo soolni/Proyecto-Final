@@ -166,8 +166,6 @@ const inputCalle = document.querySelector('.input-calle');
 const inputNum = document.querySelector('.input-numero');
 const inputEsq = document.querySelector('.input-esquina');
 
-
-
 function envioEsqCheck(){
     const esquina = document.querySelector('.esquina');
     if (!inputEsq.checkValidity()) {
@@ -178,6 +176,7 @@ function envioEsqCheck(){
         inputEsq.classList.remove('is-invalid');
     }
 }
+  
 function envioNumCheck(){
     const numero = document.querySelector('.numero');
     if (!inputNum.checkValidity()) {
@@ -238,7 +237,6 @@ function vencimientoTarjCred(){
     }
 }
 
-
 function modal(){
     const transBancaria = document.querySelector('.metodo-pago-dos');
     const tarjCredito = document.querySelector('.metodo-pago-uno');
@@ -267,7 +265,6 @@ function modal(){
     }
 
 }
-
 
 finalizarCompra.addEventListener('click',function(){
     let inputGroupPress = false;
