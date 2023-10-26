@@ -71,6 +71,9 @@ function borrar(clase){
     const posicion = productos.findIndex(producto => producto.id === parseInt(primeraClase));
     productos.splice(posicion, 1)
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+    prcEnvio();
+    totalTotal();
 }
 
 function totalSubtotal() {
