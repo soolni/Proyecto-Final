@@ -44,7 +44,7 @@ if(radioUno.checked){
     transferencia.classList.add('pe-none');
     transferencia.setAttribute("aria-disabled", "true")
     transferencia.value = ""
-    transferencia.style.backgroundColor = 'grey'
+    transferencia.style.backgroundColor = 'lightcyan'
 }
 if(radioDos.checked){
     transferencia.classList.toggle('pe-none');
@@ -56,7 +56,7 @@ if(radioDos.checked){
         elemento.classList.add('pe-none');
         elemento.setAttribute("aria-disabled", "true")
         elemento.value = ""
-        elemento.style.backgroundColor = 'grey'
+        elemento.style.backgroundColor = 'lightcyan'
     })
 }
 }
@@ -156,4 +156,141 @@ tiposEnvio.forEach(envio => {
         prcEnvio();
         totalTotal();
     })
+})
+//PAUTA 3
+
+const inputGroup = document.querySelectorAll('.input-group-envio');
+const finalizarCompra = document.querySelector('.boton-finalizar');
+const formEnvio = document.querySelector('.formulario-envio');
+const inputCalle = document.querySelector('.input-calle');
+const inputNum = document.querySelector('.input-numero');
+const inputEsq = document.querySelector('.input-esquina');
+
+
+
+function envioEsqCheck(){
+    const esquina = document.querySelector('.esquina');
+    if (!inputEsq.checkValidity()) {
+        esquina.classList.remove('d-none','d-block');
+        inputEsq.classList.add('is-invalid');
+    } else {
+        esquina.classList.add('d-none','d-block');
+        inputEsq.classList.remove('is-invalid');
+    }
+}
+function envioNumCheck(){
+    const numero = document.querySelector('.numero');
+    if (!inputNum.checkValidity()) {
+        numero.classList.remove('d-none','d-block');
+        inputNum.classList.add('is-invalid');
+    } else {
+        numero.classList.add('d-none','d-block');
+        inputNum.classList.remove('is-invalid');
+    }
+}
+function envioCalleCheck(){
+    const calle = document.querySelector('.calle');
+    if (!inputCalle.checkValidity()) {
+        calle.classList.remove('d-none','d-block');
+        inputCalle.classList.add('is-invalid');
+    } else {
+        calle.classList.add('d-none','d-block');
+        inputCalle.classList.remove('is-invalid');
+    }
+}
+
+function numTarjCred(){
+    const numeroTarjeta = document.querySelector('.credito-numero');
+    const warningNumTarj = document.querySelector('.warning-credito-numero')
+    if(!numeroTarjeta.checkValidity()){
+        warningNumTarj.classList.remove('d-none', 'd-black')
+        numeroTarjeta.classList.add('is-invalid');
+    }
+    else{
+        warningNumTarj.classList.add('d-none', 'd-black')
+        numeroTarjeta.classList.remove('is-invalid');
+    }
+}
+
+function cvvTarjCred(){
+    const cvvTarjeta = document.querySelector('.credito-cvv');
+    const warningCvvTarj = document.querySelector('.warning-credito-cvv');
+    if(!cvvTarjeta.checkValidity()){
+        warningCvvTarj.classList.remove('d-none', 'd-black')
+        cvvTarjeta.classList.add('is-invalid');
+    }
+    else{
+        warningCvvTarj.classList.add('d-none', 'd-black')
+        cvvTarjeta.classList.remove('is-invalid');
+    }
+}
+
+function vencimientoTarjCred(){
+    const vencimientoTarjeta = document.querySelector('.credito-vencimiento');
+    const warningVenciTarj = document.querySelector('.warning-credito-vencimiento');
+    if(!vencimientoTarjeta.checkValidity()){
+        warningVenciTarj.classList.remove('d-none', 'd-black')
+        vencimientoTarjeta.classList.add('is-invalid');
+    }
+    else{
+        warningVenciTarj.classList.add('d-none', 'd-black')
+        vencimientoTarjeta.classList.remove('is-invalid');
+    }
+}
+
+
+function modal(){
+    const transBancaria = document.querySelector('.metodo-pago-dos');
+    const tarjCredito = document.querySelector('.metodo-pago-uno');
+    const metodoPago = document.querySelector('.warning-tarjetaCredito');
+    const transNum = document.querySelector('.transferencia-numero');
+    const transWarningNum = document.querySelector('.warning-transferencia-numero');
+
+    if(!transBancaria.checked && !tarjCredito.checked){
+        metodoPago.classList.remove('d-none', 'd-block')
+    }
+    
+    if(!transBancaria.checked){
+        numTarjCred();
+        cvvTarjCred();
+        vencimientoTarjCred();
+    }
+    if(!tarjCredito.checked){
+        if(!transNum.checkValidity()){
+            transNum.classList.remove('is-invalid');
+            transWarningNum.classList.add('d-none', 'd-black');
+        }
+        else{
+            transNum.classList.add('is-invalid');
+            transWarningNum.classList.remove('d-none', 'd-black');
+        }
+    }
+
+}
+
+
+finalizarCompra.addEventListener('click',function(){
+    let inputGroupPress = false;
+    inputGroup.forEach(button=>{
+        if (button.checked) {
+            inputGroupPress = true;
+        }  
+    })
+    
+    function grupodeinputs(){
+        const tipoEnvio = document.querySelector('.tipo-envio');
+        if(inputGroupPress){
+            tipoEnvio.classList.toggle('d-none', 'd-block');
+        }
+        if(!inputGroupPress){
+            tipoEnvio.classList.remove('d-none', 'd-block');
+        }
+    }
+    grupodeinputs()
+
+    envioCalleCheck();
+    envioEsqCheck();
+    envioNumCheck();
+
+    modal()
 })
