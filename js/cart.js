@@ -1,82 +1,25 @@
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
-let sumaSubtotal = 0;
 
-// Cargar en carrito articulo pre-cargado y actualizar subtotal
-fetch(URL_carrito)
-.then(response => response.json())
-.then(data => {
-contenedor.innerHTML += `
-<div id="container-${data.id}" class="row">
-    <div class="col"><img class="" src="${data.articles[0].image}" style="width: 4rem"></div>
-    <div class="col">${data.articles[0].name}</div>
-    <div class="col">USD ${data.articles[0].unitCost}</div>
-    <div class="col"><input id="inp" type="number" min="0" style="width:60px" value="${data.articles[0].count}"></div>
-    <div id="subtotal" class="col">${data.articles[0].currency} ${data.articles[0].unitCost}</div>
-    <div class="col"><span class="${data.id} bi bi-trash" onclick="borrarProductoPrecargado(this)"></span></div>
-    <br><br>
-    <hr>
-</div>
-`
-sumaSubtotal += data.articles[0].unitCost;
-subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-
-function actualizarSubtotal() {
-    const cantidadInp = document.querySelector('#inp');
-    const cantidad = cantidadInp.value;
-    const subtotal = cantidad * data.articles[0].unitCost;
-    document.querySelector('#subtotal').textContent = `USD ${subtotal}`;
-    sumaSubtotal += data.articles[0].unitCost;
-    subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    }
-
-document.getElementById("inp").addEventListener("input", actualizarSubtotal);
-
-})
+let total = 0;
 
 // Traer y parsear productos comprados de localStorage
 const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
 
-// Cargar productos comprados en carrito y actualizar subtotal
-productosCarrito.forEach(producto => {
-    const container = document.querySelector('#carrito');
-    container.innerHTML +=`
-    <div id="container-${producto.id}" class="row">
-    <div class="col"><img class="" src="${producto.image}" style="width: 4rem"></div>
-    <div class="col">${producto.name}</div>
-    <div class="col">USD ${producto.unitCost}</div>
-    <div class="col"><input id="${producto.id}" type="number" min="0" style="width:60px" value="${producto.count}" onchange="actualizarSubtotal(${producto.id})"></div>
-    <div class="col" id="subtotal_${producto.id}">${producto.currency} ${producto.unitCost}</div>
-    <div class="col"><span class="${producto.id} bi bi-trash" onclick="borrar(this)"></span></div>
-    <br><br>
-    <hr>
-    </div>`;
+////////////////////
+///// Funciones ///
+//////////////////
 
-    if(producto.currency === 'UYU'){
-        sumaSubtotal += producto.unitCost / 40;
-        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    } else {
-        sumaSubtotal += producto.unitCost
-        subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-    }
+function actualizarSubtotal(id) {
+    const input = document.getElementById(id);
+    const subtotal = document.getElementById(`subtotal_${id}`);
+    const producto = productosCarrito.find(p => p.id === id);
+    const nuevoSubtotal = producto.unitCost * input.value;
+    subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+}
 
-});
-    function actualizarSubtotal(id) {
-        const input = document.getElementById(id);
-        const subtotal = document.getElementById(`subtotal_${id}`);
-        const producto = productosCarrito.find(p => p.id === id);
-        const nuevoSubtotal = producto.unitCost * input.value;
-        subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
-        if(producto.currency === 'UYU'){
-            sumaSubtotal += producto.unitCost / 40;
-            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-        } else {
-            sumaSubtotal += producto.unitCost;
-            subtotalTotal.innerHTML = `USD ${sumaSubtotal}`;
-        }
-    }
-       
 //ENTREGA 6
 
 //PAUTA 2
@@ -115,8 +58,6 @@ if(radioDos.checked){
 }
 }
 
-payMethod();
-
 //Desafiate 
 function borrar(clase){
     const clases = clase.className.split(' ');
@@ -129,9 +70,54 @@ function borrar(clase){
     localStorage.setItem('productosCarrito', JSON.stringify(productos));
 }
 
-function borrarProductoPrecargado(clase){
-    const clases = clase.className.split(' ');
-    const primeraClase = clases[0];
-    const div = document.getElementById(`container-${primeraClase}`)
-    div.remove()
+function totalSubtotal() {
+    const subtotales = contenedor.querySelectorAll(".subtotal");
+    let precio = 0;
+
+    subtotales.forEach(subtotal => {
+       let texto = subtotal.textContent;
+       let num = parseInt(texto.slice(4));
+
+       if(texto.includes('UYU')) {
+        precio = num / 40;
+       } else {
+        precio = num;
+       }
+
+       total += precio;
+    })
+    total = Math.trunc(total);
+
+    return total
 }
+
+
+
+
+
+// Cargar en carrito articulo pre-cargado y actualizar subtotal
+fetch(URL_carrito)
+.then(response => response.json())
+.then(data => {
+    console.log(data)
+    productosCarrito.push(data.articles[0])
+    console.log(productosCarrito)
+    
+    // Cargar productos comprados en carrito y actualizar subtotal
+    for(let i=0; i<productosCarrito.length; i++) {
+        contenedor.innerHTML +=`
+        <div id="container-${productosCarrito[i].id}" class="row">
+        <div class="col"><img class="" src="${productosCarrito[i].image}" style="width: 4rem"></div>
+        <div class="col">${productosCarrito[i].name}</div>
+        <div class="col">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
+        <div class="col"><input id="${productosCarrito[i].id}" type="number" min="0" style="width:60px" value="${productosCarrito[i].count}" onchange="actualizarSubtotal(${productosCarrito[i].id})"></div>
+        <div class="col subtotal" id="subtotal_${productosCarrito[i].id}">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
+        <div class="col"><span class="${productosCarrito[i].id} bi bi-trash" onclick="borrar(this)"></span></div>
+        <br><br>
+        <hr>
+        </div>`;
+    }
+    subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
+})
+
+payMethod();
