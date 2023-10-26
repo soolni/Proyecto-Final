@@ -247,23 +247,24 @@ function modal(){
     if(!transBancaria.checked && !tarjCredito.checked){
         metodoPago.classList.remove('d-none', 'd-block')
     }
+    else{
+        if(!transBancaria.checked){
+            numTarjCred();
+            cvvTarjCred();
+            vencimientoTarjCred();
+        }
+        if(!tarjCredito.checked){
+            if(!transNum.checkValidity()){
+                transNum.classList.remove('is-invalid');
+                transWarningNum.classList.add('d-none', 'd-black');
+            }
+            else{
+                transNum.classList.add('is-invalid');
+                transWarningNum.classList.remove('d-none', 'd-black');
+            }
+        }
+    }
     
-    if(!transBancaria.checked){
-        numTarjCred();
-        cvvTarjCred();
-        vencimientoTarjCred();
-    }
-    if(!tarjCredito.checked){
-        if(!transNum.checkValidity()){
-            transNum.classList.remove('is-invalid');
-            transWarningNum.classList.add('d-none', 'd-black');
-        }
-        else{
-            transNum.classList.add('is-invalid');
-            transWarningNum.classList.remove('d-none', 'd-black');
-        }
-    }
-
 }
 
 finalizarCompra.addEventListener('click',function(){
