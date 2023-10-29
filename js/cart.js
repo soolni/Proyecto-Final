@@ -136,7 +136,7 @@ fetch(URL_carrito)
         <div class="col"><img class="" src="${productosCarrito[i].image}" style="width: 4rem"></div>
         <div class="col">${productosCarrito[i].name}</div>
         <div class="col">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
-        <div class="col"><input id="${productosCarrito[i].id}" type="number" min="0" style="width:60px" value="${productosCarrito[i].count}" onchange="actualizarSubtotal(${productosCarrito[i].id})"></div>
+        <div class="col"><input id="${productosCarrito[i].id}" type="number" min="1" style="width:60px" value="${productosCarrito[i].count}" onchange="actualizarSubtotal(${productosCarrito[i].id})"></div>
         <div class="col subtotal" id="subtotal_${productosCarrito[i].id}">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
         <div class="col"><span class="${productosCarrito[i].id} bi bi-trash" onclick="borrar(this)"></span></div>
         <br><br>
