@@ -88,7 +88,7 @@
           <input type="radio" class="input-group-envio form-check-input" name="radionExam" id="option3">
           <label for="option3">Standard 12 a 15 días (5%)</label>
         </div>
-        <p class="tipo-envio d-none d-block" style="color: red;">Seleccione un metodo de envio</p>
+        <p class="tipo-envio d-none" style="color: red;">Seleccione un metodo de envio</p>
       </div>
       <br><br>
 
@@ -98,17 +98,17 @@
             <h3>Dirección de envío</h3>
             <div class="col-6">
               <label for="calle" class="">Calle:</label> <input class="input-calle form-control" type="text" name="calle" required>
-              <p class="calle d-none d-block" style="color: red;">Ingresa una calle</p>
+              <p class="calle d-none" style="color: red;">Ingresa una calle</p>
             </div>
             <div class="col-4">
               <label for="numero" class="">Número:</label> <input class="input-numero form-control" type="text" name="numero" required>
-              <p class="numero d-none d-block" style="color: red;">Ingresa un numero</p>
+              <p class="numero d-none" style="color: red;">Ingresa un numero</p>
             </div>
           </div>
           <div class="row">
             <div class="col-6">
               <label for="esquina" class="">Esquina:</label> <input class="input-esquina form-control" type="text" name="esquina" required>
-              <p class="esquina d-none d-block" style="color: red;">Ingresa una esquina</p>
+              <p class="esquina d-none" style="color: red;">Ingresa una esquina</p>
             </div>
           </div>
           <br><br><hr>
@@ -145,6 +145,8 @@
     <div id="formaPago">
       <h3>Forma de pago</h3>
       <p>No ha seleccionado <a href="#mi-modal" data-bs-toggle="modal">seleccionar</a></p>
+      <p class="warning-tarjetaCredito d-none" style="color: red;">Seleccione un metodo de pago</p>
+      <p class="warning-completar-campos d-none" style="color: red;">Seleccione un metodo de pago</p>
       <br>
       <div class="d-grid gap-2">
         <button class="boton-finalizar btn btn-primary" type="submit">Finalizar compra</button>
@@ -154,7 +156,6 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content p-4">
             <h3>Forma de pago</h3>
-            <p class="warning-tarjetaCredito d-none d-block" style="color: red;">Seleccione un metodo de pago</p>
             <br>
             <div class="form-check">
               <input class="input-modal form-check-input metodo-pago-uno" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="payMethod()">
@@ -164,17 +165,17 @@
             <div class="row">
               <div class="col-6">
                 <label for="numero" class="">Num de tarjeta</label> <input class="credito-numero form-control tarjeta-credito pe-none" type="text" name="numero" required>
-                <p class="warning-credito-numero d-none d-block" style="color: red;">Escriba un numero</p>
+                <p class="warning-credito-numero d-none" style="color: red;">Escriba un numero</p>
               </div>
               <div class="col-4">
                 <label for="cvv" class="">CVV</label> <input class="credito-cvv form-control tarjeta-credito pe-none" type="text" name="cvv" required>
-                <p class="warning-credito-cvv d-none d-block" style="color: red;">Escriba su cod. de seguridad</p>
+                <p class="warning-credito-cvv d-none" style="color: red;">Escriba su cod. de seguridad</p>
               </div>
             </div>
             <div class="row">
               <div class="col-6">
                 <label for="vencimiento" class="">Vencimiento(MM/AA)</label> <input class="credito-vencimiento form-control tarjeta-credito pe-none" type="date" name="vencimiento" required>
-                <p class="warning-credito-vencimiento d-none d-block" style="color: red;">Seleccione una fecha</p>
+                <p class="warning-credito-vencimiento d-none" style="color: red;">Seleccione una fecha</p>
               </div>
             </div>
             <br>
@@ -186,13 +187,16 @@
             <div class="row">
               <div class="col-6">
                 <label for="trans-numero" class="">Numero de cuenta</label> <input class="transferencia-numero form-control transferencia pe-none" type="text" name="trans-numero">
-                <p class="warning-transferencia-numero d-none d-block" style="color: red;">Escriba un numero</p>
+                <p class="warning-transferencia-numero d-none" style="color: red;">Escriba un numero</p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
+    <div id="alert-compra">
+
     </div>
   </main>
   
