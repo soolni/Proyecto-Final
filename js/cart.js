@@ -164,6 +164,7 @@ const finalizarCompra = document.querySelector('.boton-finalizar');
 const inputCalle = document.querySelector('.input-calle');
 const inputNum = document.querySelector('.input-numero');
 const inputEsq = document.querySelector('.input-esquina');
+const compCamposWarning = document.querySelector('.warning-completar-campos');
 
 let envEsquinaAlert = false;
 let envNumAlert = false;
@@ -272,6 +273,7 @@ function modal(){
     const metodoPago = document.querySelector('.warning-tarjetaCredito');
     const transNum = document.querySelector('.transferencia-numero');
     const transWarningNum = document.querySelector('.warning-transferencia-numero');
+    
 
     if(!transBancaria.checked && !tarjCredito.checked){
         metodoPago.classList.remove('d-none')
@@ -286,18 +288,25 @@ function modal(){
             numTarjCred();
             cvvTarjCred();
             vencimientoTarjCred();
+            transNum.classList.remove('is-invalid');
+            transWarningNum.classList.add('d-none');
             modalAlert = true;
+            if( numTarjeAlert == false ||
+                cvvTarjeAlert == false ||
+                vencTarjeAlert == false){
+                compCamposWarning.classList.remove('d-none');
+            }
+            else{compCamposWarning.classList.add('d-none');}
         }
         if(transBancaria.checked){
             if(transNum.value.trim() === ''){
-                console.log("numero no escrito")
                 metodoPago.classList.add('d-none')
                 transNum.classList.add('is-invalid');
                 transWarningNum.classList.remove('d-none');
                 modalAlert = false;
+                compCamposWarning.classList.remove('d-none');
             }
             else{
-                console.log("fua pa ahi")
                 metodoPago.classList.add('d-none')
                 transNum.classList.remove('is-invalid');
                 transWarningNum.classList.add('d-none');
@@ -305,6 +314,7 @@ function modal(){
                 numTarjeAlert = true;
                 cvvTarjeAlert = true;
                 vencTarjeAlert = true;
+                compCamposWarning.classList.add('d-none');
             }
         }
     }
