@@ -161,81 +161,110 @@ tiposEnvio.forEach(envio => {
 
 const inputGroup = document.querySelectorAll('.input-group-envio');
 const finalizarCompra = document.querySelector('.boton-finalizar');
-const formEnvio = document.querySelector('.formulario-envio');
 const inputCalle = document.querySelector('.input-calle');
 const inputNum = document.querySelector('.input-numero');
 const inputEsq = document.querySelector('.input-esquina');
 
+let envEsquinaAlert = false;
+let envNumAlert = false;
+let envCalleAlert = false;
+let numTarjeAlert = true;
+let cvvTarjeAlert = true;
+let vencTarjeAlert = true;
+let modalAlert = true;
+let tipoEnvioAlert = false;
+
 function envioEsqCheck(){
     const esquina = document.querySelector('.esquina');
     if (!inputEsq.checkValidity()) {
-        esquina.classList.remove('d-none','d-block');
+        esquina.classList.remove('d-none');
         inputEsq.classList.add('is-invalid');
+        envEsquinaAlert = false;
     } else {
-        esquina.classList.add('d-none','d-block');
+        esquina.classList.add('d-none');
         inputEsq.classList.remove('is-invalid');
+        envEsquinaAlert = true;
+        console.log()
     }
 }
   
+
 function envioNumCheck(){
     const numero = document.querySelector('.numero');
     if (!inputNum.checkValidity()) {
-        numero.classList.remove('d-none','d-block');
+        numero.classList.remove('d-none');
         inputNum.classList.add('is-invalid');
+        envNumAlert = false;
     } else {
-        numero.classList.add('d-none','d-block');
+        numero.classList.add('d-none');
         inputNum.classList.remove('is-invalid');
+        envNumAlert = true;
+        console.log(envNumAlert)
     }
 }
+
+
 function envioCalleCheck(){
     const calle = document.querySelector('.calle');
     if (!inputCalle.checkValidity()) {
-        calle.classList.remove('d-none','d-block');
+        calle.classList.remove('d-none');
         inputCalle.classList.add('is-invalid');
+        envCalleAlert = false;
     } else {
-        calle.classList.add('d-none','d-block');
+        calle.classList.add('d-none');
         inputCalle.classList.remove('is-invalid');
+        envCalleAlert = true;
     }
 }
+
 
 function numTarjCred(){
     const numeroTarjeta = document.querySelector('.credito-numero');
     const warningNumTarj = document.querySelector('.warning-credito-numero')
     if(!numeroTarjeta.checkValidity()){
-        warningNumTarj.classList.remove('d-none', 'd-black')
+        warningNumTarj.classList.remove('d-none')
         numeroTarjeta.classList.add('is-invalid');
+        numTarjeAlert = false;
     }
     else{
-        warningNumTarj.classList.add('d-none', 'd-black')
+        warningNumTarj.classList.add('d-none', 'd-block')
         numeroTarjeta.classList.remove('is-invalid');
+        numTarjeAlert = true;
     }
 }
+
 
 function cvvTarjCred(){
     const cvvTarjeta = document.querySelector('.credito-cvv');
     const warningCvvTarj = document.querySelector('.warning-credito-cvv');
     if(!cvvTarjeta.checkValidity()){
-        warningCvvTarj.classList.remove('d-none', 'd-black')
+        warningCvvTarj.classList.remove('d-none')
         cvvTarjeta.classList.add('is-invalid');
+        cvvTarjeAlert = false;
     }
     else{
-        warningCvvTarj.classList.add('d-none', 'd-black')
+        warningCvvTarj.classList.add('d-none')
         cvvTarjeta.classList.remove('is-invalid');
+        cvvTarjeAlert = true;
     }
 }
+
 
 function vencimientoTarjCred(){
     const vencimientoTarjeta = document.querySelector('.credito-vencimiento');
     const warningVenciTarj = document.querySelector('.warning-credito-vencimiento');
     if(!vencimientoTarjeta.checkValidity()){
-        warningVenciTarj.classList.remove('d-none', 'd-black')
+        warningVenciTarj.classList.remove('d-none')
         vencimientoTarjeta.classList.add('is-invalid');
+        vencTarjeAlert = false;
     }
     else{
-        warningVenciTarj.classList.add('d-none', 'd-black')
+        warningVenciTarj.classList.add('d-none')
         vencimientoTarjeta.classList.remove('is-invalid');
+        vencTarjeAlert = true;
     }
 }
+
 
 function modal(){
     const transBancaria = document.querySelector('.metodo-pago-dos');
@@ -245,27 +274,43 @@ function modal(){
     const transWarningNum = document.querySelector('.warning-transferencia-numero');
 
     if(!transBancaria.checked && !tarjCredito.checked){
-        metodoPago.classList.remove('d-none', 'd-block')
+        metodoPago.classList.remove('d-none')
+        numTarjeAlert = false;
+        cvvTarjeAlert = false;
+        vencTarjeAlert = false;
+        modalAlert = false;
     }
     else{
-        if(!transBancaria.checked){
+        if(tarjCredito.checked){
+            metodoPago.classList.add('d-none')
             numTarjCred();
             cvvTarjCred();
             vencimientoTarjCred();
+            modalAlert = true;
         }
-        if(!tarjCredito.checked){
-            if(!transNum.checkValidity()){
-                transNum.classList.remove('is-invalid');
-                transWarningNum.classList.add('d-none', 'd-black');
+        if(transBancaria.checked){
+            if(transNum.value.trim() === ''){
+                console.log("numero no escrito")
+                metodoPago.classList.add('d-none')
+                transNum.classList.add('is-invalid');
+                transWarningNum.classList.remove('d-none');
+                modalAlert = false;
             }
             else{
-                transNum.classList.add('is-invalid');
-                transWarningNum.classList.remove('d-none', 'd-black');
+                console.log("fua pa ahi")
+                metodoPago.classList.add('d-none')
+                transNum.classList.remove('is-invalid');
+                transWarningNum.classList.add('d-none');
+                modalAlert = true;
+                numTarjeAlert = true;
+                cvvTarjeAlert = true;
+                vencTarjeAlert = true;
             }
         }
     }
     
 }
+
 
 finalizarCompra.addEventListener('click',function(){
     let inputGroupPress = false;
@@ -279,9 +324,11 @@ finalizarCompra.addEventListener('click',function(){
         const tipoEnvio = document.querySelector('.tipo-envio');
         if(inputGroupPress){
             tipoEnvio.classList.toggle('d-none', 'd-block');
+            tipoEnvioAlert = true
         }
         if(!inputGroupPress){
             tipoEnvio.classList.remove('d-none', 'd-block');
+            tipoEnvioAlert = false
         }
     }
     grupodeinputs()
@@ -291,4 +338,34 @@ finalizarCompra.addEventListener('click',function(){
     envioNumCheck();
 
     modal()
+
+    console.log(envEsquinaAlert)
+    console.log(envNumAlert)
+    console.log(envCalleAlert)
+    console.log(cvvTarjeAlert)
+    console.log(vencTarjeAlert)
+    console.log(modalAlert)
+    console.log(tipoEnvioAlert)
+
+    function alert(){
+        const alert = document.querySelector("#alert-compra");
+        if(
+            envEsquinaAlert == true &&
+            envNumAlert == true &&
+            envCalleAlert == true && 
+            cvvTarjeAlert == true &&
+            vencTarjeAlert == true && 
+            modalAlert == true && 
+            tipoEnvioAlert == true
+        ){
+            alert.innerHTML +=`
+            <div class="alert alert-success" role="alert">
+            ¡Has comprado con éxito!
+          </div>
+            `
+        }
+    }
+    alert()
+
 })
+
