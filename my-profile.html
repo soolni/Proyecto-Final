@@ -59,13 +59,89 @@
       </div>
     </div>
   </nav>
+
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="row">
+      <div class="col-3">
+      </div>
+      <div class="col-6">
+        <br>
+        <div class="row">
+          <div class="col-6">
+            <h3>Perfil</h3>
+          </div>       
+          <div class="col-6">
+            <img src="img/profile-picture.webp" class="img-thumbnail imagen-perfil float-end" alt="..." width="120rem">
+          </div>
+        </div>
+        <hr>
+        <form action="" id="miPerfil">
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Primer nombre*</label>
+                <input type="text" class="form-control campo-obligatorio" id="floatingInputGrid nombre" placeholder="nombre" required>
+                <p id="nombre" class="d-none" style="color: red;">Escriba su nombre</p>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Segundo nombre</label>
+                <input type="text" class="form-control" id="floatingInputGrid segundo-nombre" placeholder="segundo nombre">                
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Primer apellido*</label>
+                <input type="text" class="form-control campo-obligatorio" id="floatingInputGrid apellido" placeholder="apellido" required>
+                <p id="apellido" class="d-none" style="color: red;">Escriba su apellido</p>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Segundo apellido</label>
+                <input type="text" class="form-control" id="floatingInputGrid segundoApellido" placeholder="segundo apellido">                
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row g-2">
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Email</label>
+                <input type="email" class="form-control" id="floatingInputGrid email" placeholder="email">
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Imagen de perfil</label>
+                <input type="file" class="form-control" id="floatingInputGrid imagen-perfil">                
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="form">
+                <label for="floatingInputGrid" class="form-label">Telefono de contacto*</label>
+                <input type="text" class="form-control campo-obligatorio" id="floatingInputGrid telefono" placeholder="telefono" required>
+                <p id="telefono" class="d-none" style="color: red;">Escriba su telefono</p>
+              </div>
+            </div>
+          </div>
+          
+          <br><hr><br>
+          <button type="submit" class="btn btn-primary" id="save-changes">Guardar cambios</button>
+        </form>
+      </div>
+      <div class="col-3">
       </div>
     </div>
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
