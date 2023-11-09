@@ -25,6 +25,7 @@ boton.addEventListener('click',(e)=>{
         else{
             element.classList.remove('is-invalid');
             document.getElementById(`${element.placeholder}`).classList.add('d-none');
+            guardarImagen()
         }
     })
 
@@ -57,5 +58,50 @@ let email = localStorage.getItem("usuario");
 
 inputEmail.setAttribute("value", email);
 
+
+const imagenPerfil = document.querySelector('.input-imagen');
+function guardarImagen() {
+    
+    if (imagenPerfil.files && imagenPerfil.files[0]) {
+      const reader = new FileReader();
+  
+      reader.onload = function (e) {
+        const imagenBase64 = e.target.result;
+        localStorage.setItem('imagen', imagenBase64);
+        console.log('Imagen guardada en el localStorage.');
+        mostrarImagen()
+      };
+  
+      reader.readAsDataURL(imagenPerfil.files[0]);
+    } else {
+      console.log('No se ha seleccionado ningún archivo.');
+    }
+  }
+  mostrarImagen()
+
+
+function mostrarImagen(){
+
+    const imagenBase64 = localStorage.getItem('imagen');
+
+    if (imagenBase64) {
+    const img = document.createElement('img');
+    const defaultImagen = document.querySelector('#imagen-perfil-default');  
+    defaultImagen.remove()
+
+    img.src = imagenBase64;
+    img.style.maxWidth = '6rem';
+    img.classList.add('float-end')
+    
+    const imageContainer = document.getElementById('mostrar-imagen');
+    imageContainer.appendChild(img);
+    } else {
+    console.log('No se ha encontrado ninguna imagen en el localStorage.');
+    }
+ 
+}
+
 });
+
+
 
