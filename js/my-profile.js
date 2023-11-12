@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-const perfil = document.querySelector('#miPerfil');
 const boton = document.querySelector('#save-changes');
 
 // Inputs
@@ -35,16 +34,17 @@ boton.addEventListener('click',(e)=>{
         localStorage.setItem("primerApellido", inputApellido.value)
         localStorage.setItem("segundoApellido", inputSegApellido.value)
         localStorage.setItem("telefono", inputTelefono.value)
+        localStorage.setItem("usuario", inputEmail.value)
     }
     
 })
 
-console.log("Anda")
 
 if(localStorage.getItem("primerNombre")) {
    inputNombre.setAttribute("value", localStorage.getItem("primerNombre"));
    inputApellido.setAttribute("value", localStorage.getItem("primerApellido"));
    inputTelefono.setAttribute("value", localStorage.getItem("telefono"));
+   inputEmail.setAttribute("value", localStorage.getItem("usuario"))
 
    if(localStorage.getItem("segundoNombre")) {
     inputSegNombre.setAttribute("value", localStorage.getItem("segundoNombre"));
