@@ -76,14 +76,10 @@ nav a {
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   color: black;
   font-weight: bold;
 }
+
 
 @media (min-width: 768px) {
   .jumbotron {
@@ -296,10 +292,6 @@ body.dark {
   color: whitesmoke
 }
 
-.productName {
-  width: 50%;
-  margin-top: 1rem;
-}
 
 .producto {
   display: flex;

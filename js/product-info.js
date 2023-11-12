@@ -24,47 +24,61 @@ fetch(DATA_URL)
         const productElement = document.querySelector(".product-info")
 
         productElement.innerHTML = `
-                <div class="producto">
+                
+                <br>
+                <br>
+                <div class="d-lg-none d-xl-none d-xxl-none">
                 <h2 class="productName">${data.name}</h2>
-                <button class="btn btn-primary comprar" id="comprar" type="button">Comprar</button>
-                </div>
                 <hr>
-
-                <p><strong>Precio</strong><br>${data.currency +' '+ data.cost}</p>
-
-                <p><strong>Descripción</strong><br>${data.description}</p>
-
-                <p><strong>Categoría</strong><br>${data.category}</p>
-
-                <p><strong>Cantidad de vendidos</strong><br>${data.soldCount}</p>
-
-                <p><strong>Imágenes ilustrativas</strong></p>
-                <br>
-                <br>
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                <div class="carousel-item active">
-                <img src="img/prod${data.id}_1.jpg" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                <img src="img/prod${data.id}_2.jpg" class="d-block w-100" alt="...">
+                <div class="row">
+                  <div id="carouselExampleControls" class="carousel slide col-lg-6" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                  <div class="carousel-item active">
+                  <img src="img/prod${data.id}_1.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                  <img src="img/prod${data.id}_2.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                  <img src="img/prod${data.id}_3.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                  <img src="img/prod${data.id}_4.jpg" class="d-block w-100" alt="...">
+                  </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                  </button>
+                  <p><strong>Imágenes ilustrativas</strong></p>
+                  </div>
+                  <div class="producto col-lg-6">
+                    
+                    <div class="col-12">  
+                      <div class="d-md-none d-sm-none d-none d-lg-block">
+                        <h2 class="productName">${data.name}</h2>
+                        <hr>
+                      </div>
+                    
+                      <p><strong>Precio</strong><br>${data.currency +' '+ data.cost}</p>
+
+                      <p><strong>Descripción</strong><br>${data.description}</p>
+
+                      <p><strong>Categoría</strong><br>${data.category}</p>
+
+                      <p><strong>Cantidad de vendidos</strong><br>${data.soldCount}</p>
+
+                      <button class="btn btn-primary comprar" id="comprar" type="button">Comprar</button>
+                    </div> 
+                    
+                  </div>
                 </div>
-                <div class="carousel-item">
-                <img src="img/prod${data.id}_3.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                <img src="img/prod${data.id}_4.jpg" class="d-block w-100" alt="...">
-                </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-                </button>
-                </div>`;                              
+                `;                              
 
                 document.getElementById("comprar").addEventListener("click", () => {
                   const articles = 
