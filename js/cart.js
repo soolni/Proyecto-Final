@@ -1,5 +1,3 @@
-// ACA TAMBIEN HAY QUE USAR LA CONSTANTE QUE ESTA EN INIT.JS
-const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
 const costoEnvio = document.getElementById("costoEnvio")
@@ -7,7 +5,7 @@ const tipoDeEnvio = document.getElementById("tipoDeEnvio")
 const totalCompra = document.getElementById("totalCompra");
 
 // Traer y parsear productos comprados de localStorage
-const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'))
+const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'));
 
 ////////////////////
 ///// Funciones ///
@@ -125,7 +123,7 @@ function totalTotal() {
 }
 
 // Cargar en carrito articulo pre-cargado y actualizar subtotal
-fetch(URL_carrito)
+fetch(CART_INFO_URL + "25801.json")
 .then(response => response.json())
 .then(data => {
     productosCarrito.push(data.articles[0])

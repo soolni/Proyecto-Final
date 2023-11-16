@@ -1,6 +1,3 @@
-// ACA TENDRIAMOS QUE USAR LA CONSTANTE PRODUCTS_URL EN LUGAR DE CREAR OTRA NUEVA LLAMADA DATA_URL
-const DATA_URL = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`;
-
 /*PRUEBA DEL FILTRO*/
 
 /*Defino las variables globales*/
@@ -115,7 +112,8 @@ function MostrarProdOrdenados(criterioDeOrden, arregloDeProd){
 /*Función que se ejecuta una vez que que el documento se encuentra cargado*/
 
 document.addEventListener("DOMContentLoaded", function(e){
-  getJSONData(DATA_URL).then(function(resultado){
+  getJSONData(PRODUCTS_URL + `${localStorage.getItem("catID")}.json`)
+  .then(function(resultado){
     if (resultado.status === "ok"){
       arregloActualProd = resultado.data.products
       showProductList(arregloActualProd);

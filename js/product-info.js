@@ -1,8 +1,3 @@
-// ACA TAMBIEN HAY QUE CAMBIAR EL DATA URL POR PRODUCT_INFO_URL DEL INIT.JS
-const DATA_URL = `https://japceibal.github.io/emercado-api/products/${localStorage.getItem("clickedItemId")}.json`;
-// ACA TAMBIEN HAY QUE USAR LA CONSTANTE QUE ESTA EN INIT.JS
-const COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("clickedItemId")}.json`;
-
 const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || [];
 
 const arregloProductos = JSON.parse(localStorage.getItem('productosCarrito')) || [];
@@ -20,7 +15,7 @@ function agregarObjeto(objeto) {
   }
 }                  
 
-fetch(DATA_URL)
+fetch(PRODUCT_INFO_URL + `${localStorage.getItem("clickedItemId")}.json`)
     .then(response => response.json())
     .then(data=>{
         const productElement = document.querySelector(".product-info")
@@ -100,7 +95,7 @@ fetch(DATA_URL)
                 });
     
 
-fetch(COMMENTS_URL)
+fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json`)
     .then(response => response.json())
     .then(data => {
         const comments = document.querySelector(".comentarios");
@@ -210,7 +205,7 @@ fetch(COMMENTS_URL)
     });  
 
 //entrega 4
-fetch(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`)
+fetch(PRODUCTS_URL + `${localStorage.getItem("catID")}.json`)
   .then(response => response.json())
   .then(data => {
     // json
