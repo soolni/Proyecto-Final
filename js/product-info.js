@@ -1,4 +1,6 @@
+// ACA TAMBIEN HAY QUE CAMBIAR EL DATA URL POR PRODUCT_INFO_URL DEL INIT.JS
 const DATA_URL = `https://japceibal.github.io/emercado-api/products/${localStorage.getItem("clickedItemId")}.json`;
+// ACA TAMBIEN HAY QUE USAR LA CONSTANTE QUE ESTA EN INIT.JS
 const COMMENTS_URL = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("clickedItemId")}.json`;
 
 const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || [];

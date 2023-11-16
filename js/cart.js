@@ -1,3 +1,4 @@
+// ACA TAMBIEN HAY QUE USAR LA CONSTANTE QUE ESTA EN INIT.JS
 const URL_carrito = 'https://japceibal.github.io/emercado-api/user_cart/25801.json';
 const contenedor = document.querySelector('#carrito');
 const subtotalTotal = document.getElementById('sumaSubtotal');
