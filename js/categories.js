@@ -89,6 +89,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(CATEGORIES_URL).then(function(resultObj){
+        console.log(resultObj);
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
             showCategoriesList()

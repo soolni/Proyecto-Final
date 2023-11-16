@@ -1,3 +1,4 @@
+// ACA TENDRIAMOS QUE USAR LA CONSTANTE PRODUCTS_URL EN LUGAR DE CREAR OTRA NUEVA LLAMADA DATA_URL
 const DATA_URL = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`;
 
 /*PRUEBA DEL FILTRO*/
