@@ -5,7 +5,7 @@ const tipoDeEnvio = document.getElementById("tipoDeEnvio")
 const totalCompra = document.getElementById("totalCompra");
 
 // Traer y parsear productos comprados de localStorage
-const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito'));
+const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito')) || [];
 
 ////////////////////
 ///// Funciones ///
