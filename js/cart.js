@@ -141,9 +141,11 @@ fetch(CART_INFO_URL + "25801.json")
         <br><br>
         <hr>
         </div>`;
+        actualizarSubtotal(productosCarrito[i].id);
     }
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
     totalTotal();
+    
 })
 
 payMethod();
