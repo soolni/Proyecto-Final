@@ -1,5 +1,6 @@
 // Arrays
 const arrayComments = JSON.parse(localStorage.getItem("newComment")) || [];
+console.log(arrayComments);
 const arrayProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
 
 
@@ -136,8 +137,8 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
           if(newComment[j].id === localStorage.getItem("clickedItemId")){
   
               comments.innerHTML += `
-              <p><strong>${newComment[j].usuario}</strong> - ${newComment[j].fecha} - ${starsHTML}</p>
-              <p>${newComment[j].comentario}</p><hr>
+              <p><strong>${newComment[j].user}</strong> - ${newComment[j].date} - ${starsHTML}</p>
+              <p>${newComment[j].comment}</p><hr>
               `; 
           }     
         }
@@ -183,11 +184,11 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
         const user = localStorage.getItem("user");
         const ID = localStorage.getItem("clickedItemId")
         const currentDate = new Date();
-        const formatedDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)} ${('0' + currentDate.getHours()).slice(-2)}:${('0' + currentDate.getMinutes()).slice(-2)}:${('0' + currentDate.getSeconds()).slice(-2)}`;
+        const formattedDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)} ${('0' + currentDate.getHours()).slice(-2)}:${('0' + currentDate.getMinutes()).slice(-2)}:${('0' + currentDate.getSeconds()).slice(-2)}`;
         
         const commentData = {
             rating: selectedRating,
-            date: fechaFormateada,
+            date: formattedDate,
             comment: comment,
             user: user,
             id: ID,
