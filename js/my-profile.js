@@ -82,7 +82,7 @@ function savePicture() {
 
 function showPicture(){
 
-    const imageBase64 = localStorage.getItem('imagen');
+    const imageBase64 = localStorage.getItem('picture');
 
     if (imageBase64) {
     const img = document.createElement('img');
