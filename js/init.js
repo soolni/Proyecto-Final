@@ -94,9 +94,9 @@ if (!document.getElementById('ftBgColorImg')) {
     }
   
     if (document.querySelector("body").className === "dark") {
-      document.querySelector(".fas.fa-moon").classList.replace("fa-moon", "fa-sun")
+      document.querySelector(".bi.bi-moon").classList.replace("bi-moon", "bi-brightness-high")
     } else {
-      document.querySelector(".fas.fa-sun").classList.replace("fa-sun", "fa-moon")
+      document.querySelector(".bi.bi-brightness-high").classList.replace("bi-brightness-high", "bi-moon")
     }
   });
   
