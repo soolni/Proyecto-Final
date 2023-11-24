@@ -9,7 +9,7 @@ let PESO_SYMBOL = "UYU ";
 let PERCENTAGE_SYMBOL = '%';
 let MSG = "FUNCIONALIDAD NO IMPLEMENTADA";
 
-//Función que se utiliza para actualizar los costos de publicación
+// Function used to update publication costs
 function updateTotalCosts(){
     let unitProductCostHTML = document.getElementById("productCostText");
     let comissionCostHTML = document.getElementById("comissionText");
@@ -24,9 +24,9 @@ function updateTotalCosts(){
     totalCostHTML.innerHTML = totalCostToShow;
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
+// Function that runs once the event is triggered
+// indicating that the document has loaded, meaning all
+// HTML elements are present.
 document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById("productCountInput").addEventListener("change", function(){
         productCount = this.value;
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
 
 
-    //Configuraciones para el elemento que sube archivos
+    // Configurations for the file upload element
     let dzoptions = {
         url:"/",
         autoQueue: false
@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function(e){
     let myDropzone = new Dropzone("div#file-upload", dzoptions);    
 
 
-    //Se obtiene el formulario de publicación de producto
+    // Obtaining the product publishing form
     let sellForm = document.getElementById("sell-info");
 
-    //Se agrega una escucha en el evento 'submit' que será
-    //lanzado por el formulario cuando se seleccione 'Vender'.
+    // Adding a listener for the 'submit' event that will be
+    // triggered by the form when 'Sell' is selected.
     sellForm.addEventListener("submit", function(e){
 
         e.preventDefault(); 
@@ -90,28 +90,28 @@ document.addEventListener("DOMContentLoaded", function(e){
         let productCost = document.getElementById("productCostInput");
         let infoMissing = false;
 
-        //Quito las clases que marcan como inválidos
+        // Removing classes that mark as invalid
         productNameInput.classList.remove('is-invalid');
         productCategory.classList.remove('is-invalid');
         productCost.classList.remove('is-invalid');
 
-        //Se realizan los controles necesarios,
-        //En este caso se controla que se haya ingresado el nombre y categoría.
-        //Consulto por el nombre del producto
+        // Necessary checks are performed,
+        // In this case, it is checked that the name and category have been entered.
+        // Checking for the product name
         if (productNameInput.value === "")
         {
             productNameInput.classList.add('is-invalid');
             infoMissing = true;
         }
         
-        //Consulto por la categoría del producto
+        // Checking for the product category
         if (productCategory.value === "")
         {
             productCategory.classList.add('is-invalid');
             infoMissing = true;
         }
 
-        //Consulto por el costo
+        // Checking for the cost
         if (productCost.value <=0)
         {
             productCost.classList.add('is-invalid');
@@ -120,16 +120,16 @@ document.addEventListener("DOMContentLoaded", function(e){
         
         if(!infoMissing)
         {
-            //Aquí ingresa si pasó los controles, irá a enviar
-            //la solicitud para crear la publicación.
 
+            // Enters here if it passed the checks, will proceed to send
+            // the request to create the publication.
             getJSONData(PUBLISH_PRODUCT_URL).then(function(resultObj){
                 let msgToShowHTML = document.getElementById("resultSpan");
                 let msgToShow = "";
     
-                //Si la publicación fue exitosa, devolverá mensaje de éxito,
-                //de lo contrario, devolverá mensaje de error.
-                //FUNCIONALIDAD NO IMPLEMENTADA
+                // If the publication is successful, it will return a success message,
+                // otherwise, it will return an error message.
+                // FUNCTIONALITY NOT IMPLEMENTED
                 if (resultObj.status === 'ok')
                 {
                     msgToShow = MSG;

@@ -1,27 +1,28 @@
-const arregloComentarios = JSON.parse(localStorage.getItem("nuevoComentario")) || [];
+// Arrays
+const arrayComments = JSON.parse(localStorage.getItem("newComment")) || [];
+const arrayProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
 
-const arregloProductos = JSON.parse(localStorage.getItem('productosCarrito')) || [];
 
-function agregarObjeto(objeto) {
-  const objetoExistente = arregloProductos.find(obj => obj.id === objeto.id);
+// Add product to products array or if it exists increase count
+function addObject(object) {
+  const existingObject = arrayProducts.find(obj => obj.id === object.id);
 
-  if (objetoExistente) {
-    // Si ya existe, aumenta el contador en el objeto existente
-    objetoExistente.count++;
+  if (existingObject) {
+    existingObject.count++;
   } else {
-    // Si no existe, agrega el objeto al arreglo
-    objeto.count = 1;
-    arregloProductos.push(objeto);
+    object.count = 1;
+    arrayProducts.push(object);
   }
 }                  
 
+
+// Fetch product info and handle purchase button functionality
 fetch(PRODUCT_INFO_URL + `${localStorage.getItem("clickedItemId")}.json`)
     .then(response => response.json())
     .then(data=>{
         const productElement = document.querySelector(".product-info")
 
         productElement.innerHTML = `
-                
                 <br>
                 <br>
                 <div class="d-lg-none d-xl-none d-xxl-none">
@@ -70,16 +71,15 @@ fetch(PRODUCT_INFO_URL + `${localStorage.getItem("clickedItemId")}.json`)
 
                       <p><strong>Cantidad de vendidos</strong><br>${data.soldCount}</p>
 
-                      <button class="btn btn-primary comprar" id="comprar" type="button">Comprar</button>
+                      <button class="btn btn-primary comprar" id="buy" type="button">Comprar</button>
                     </div> 
                     
                   </div>
                 </div>
                 `;                              
 
-                document.getElementById("comprar").addEventListener("click", () => {
-                  const articles = 
-                          {
+                document.getElementById("buy").addEventListener("click", () => {
+                  const articles = {
                               "id": data.id,
                               "name": data.name,
                               "count": 1,
@@ -87,61 +87,63 @@ fetch(PRODUCT_INFO_URL + `${localStorage.getItem("clickedItemId")}.json`)
                               "currency": data.currency,
                               "image": data.images[0]
                           };
-                  console.log(articles)
-                  agregarObjeto(articles)
 
-                  localStorage.setItem('productosCarrito', JSON.stringify(arregloProductos))
+                  addObject(articles)
+
+                  localStorage.setItem('cartProducts', JSON.stringify(arrayProducts))
                 })
                 });
     
 
+
+// Fetch product comments and handle new comment functionality
 fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json`)
     .then(response => response.json())
     .then(data => {
-        const comments = document.querySelector(".comentarios");
+        const comments = document.querySelector(".comments");
 
         data.forEach(function (e) {
-            const comentario = document.createElement("p");
-            comentario.innerHTML = `<div class="infoCom"><div><strong>${e.user}</strong> - ${e.dateTime} &nbsp </div><div>
+            const comment = document.createElement("p");
+            comment.innerHTML = `<div class="infoCom"><div><strong>${e.user}</strong> - ${e.dateTime} &nbsp </div><div>
               <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span></div></div>`;
 
-            const stars = comentario.querySelectorAll("span.fa-star");
+            const stars = comment.querySelectorAll("span.fa-star");
             for (let i = 0; i < e.score; i++) {
                 stars[i].classList.add("checked");
             }
 
-            const descripcion= document.createElement("p");
-            descripcion.textContent = e.description;
+            const description = document.createElement("p");
+            description.textContent = e.description;
 
-            comments.appendChild(comentario);
-            comments.appendChild(descripcion);
+            comments.appendChild(comment);
+            comments.appendChild(description);
             comments.appendChild(document.createElement("hr"));
         });
 
-        const nuevoComentarioJSON = localStorage.getItem("nuevoComentario");
-        const nuevoComentario = JSON.parse(nuevoComentarioJSON);
+        const newCommentJSON = localStorage.getItem("newComment");
+        const newComment = JSON.parse(newCommentJSON);
 
-        for(let j = 0; j < nuevoComentario.length; j++) {
+        for(let j = 0; j < newComment.length; j++) {
           let starsHTML = '';
-          for (let i = 0; i < nuevoComentario[j].rating; i++) {
+          for (let i = 0; i < newComment[j].rating; i++) {
           starsHTML += '<span class="fa fa-star checked"></span>';
           }
 
-          for (let i = nuevoComentario[j].rating; i < 5; i++) {
+          for (let i = newComment[j].rating; i < 5; i++) {
           starsHTML += '<span class="fa fa-star"></span>';
           }
 
-          if(nuevoComentario[j].id === localStorage.getItem("clickedItemId")){
+          if(newComment[j].id === localStorage.getItem("clickedItemId")){
   
               comments.innerHTML += `
-              <p><strong>${nuevoComentario[j].usuario}</strong> - ${nuevoComentario[j].fecha} - ${starsHTML}</p>
-              <p>${nuevoComentario[j].comentario}</p><hr>
+              <p><strong>${newComment[j].usuario}</strong> - ${newComment[j].fecha} - ${starsHTML}</p>
+              <p>${newComment[j].comentario}</p><hr>
               `; 
           }     
         }
     })
     .catch(error => {
-        console.error("Error al cargar comentarios:", error);
+        console.error("Error loading comments:", error);
     });
 
     const ratingStars = document.querySelectorAll('.fa-star');
@@ -151,26 +153,24 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
       star.addEventListener('click', function() {
         const rating = parseInt(this.getAttribute('data-rating'));
     
-        // Remueve la clase 'checked' de todas las estrellas
         ratingStars.forEach(star => star.classList.remove('checked'));
     
-        // Agrega la clase 'checked' a las estrellas seleccionadas y anteriores
         for (let i = 0; i < rating; i++) {
           ratingStars[i].classList.add('checked');
         }
     
-        // Guarda la puntuación seleccionada en una variable
         selectedRating = rating;
         
       });
     });
     
-    const btnComentar = document.querySelector('.btn-comentar');
-    btnComentar.addEventListener('click', function() {
-      const comentarioTexto = document.querySelector('.comentario-texto');
-      const comentario = comentarioTexto.value;
+    // New comment functionality
+    const btnComment = document.querySelector('.comment-btn');
+    btnComment.addEventListener('click', function() {
+      const textComment = document.querySelector('.text-comment');
+      const comment = textComment.value;
     
-      const comments = document.querySelector(".comentarios")  
+      const comments = document.querySelector(".comments")  
     
       let stars = '';
         for (let i = 0; i < selectedRating; i++) {
@@ -180,49 +180,46 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
         stars += '<span class="fa fa-star"></span>';
         }
     
-        const usuario = localStorage.getItem("usuario");
+        const user = localStorage.getItem("user");
         const ID = localStorage.getItem("clickedItemId")
-        const fechaActual = new Date();
-        const fechaFormateada = `${fechaActual.getFullYear()}-${('0' + (fechaActual.getMonth() + 1)).slice(-2)}-${('0' + fechaActual.getDate()).slice(-2)} ${('0' + fechaActual.getHours()).slice(-2)}:${('0' + fechaActual.getMinutes()).slice(-2)}:${('0' + fechaActual.getSeconds()).slice(-2)}`;
+        const currentDate = new Date();
+        const formatedDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)} ${('0' + currentDate.getHours()).slice(-2)}:${('0' + currentDate.getMinutes()).slice(-2)}:${('0' + currentDate.getSeconds()).slice(-2)}`;
         
-        const comentarioData = {
+        const commentData = {
             rating: selectedRating,
-            fecha: fechaFormateada,
-            comentario: comentario,
-            usuario: usuario,
+            date: fechaFormateada,
+            comment: comment,
+            user: user,
             id: ID,
         };       
 
-        arregloComentarios.push(comentarioData)
+        arrayComments.push(commentData)
 
-        const comentarioDataJSON = JSON.stringify(arregloComentarios);
-        localStorage.setItem("nuevoComentario", comentarioDataJSON);
+        const commentDataJSON = JSON.stringify(arrayComments);
+        localStorage.setItem("newComment", commentDataJSON);
          
-      // Limpia los campos después de enviar el comentario 
       ratingStars.forEach(star => star.classList.remove('checked'));
-      comentarioTexto.value = '';
+      textComment.value = '';
       location.reload()
     });  
 
-//entrega 4
+
+// Related products functionality
 fetch(PRODUCTS_URL + `${localStorage.getItem("catID")}.json`)
   .then(response => response.json())
   .then(data => {
-    // json
     const products = data.products;
     const randomProducts = [];
-    //para que muestre hasta 3 productos aleatoriamente de la misma categoria
+
     while (randomProducts.length < 3 && randomProducts.length < products.length) {
       const randomIndex = Math.floor(Math.random() * products.length);
       const randomProduct = products[randomIndex];
 
-      // para que no se repitan productos
       if (!randomProducts.includes(randomProduct)) {
         randomProducts.push(randomProduct);
       }
     }
 
-    // mostrar products relacionados
     const relatedElement = document.getElementById("related");
     let html = "";
 
@@ -234,15 +231,13 @@ fetch(PRODUCTS_URL + `${localStorage.getItem("catID")}.json`)
     });     
     relatedElement.innerHTML = html;        
 
-    //redireccionar
     const cards = document.querySelectorAll("#related-card");
     cards.forEach(card => {
     card.addEventListener("click", () => {
     const clickedItemId = card.getAttribute("data-id");
-    // guardar nuevo id en local
+
     localStorage.setItem("clickedItemId", clickedItemId);
 
-    // recargar
     window.location.href = "product-info.html";
   });
   });

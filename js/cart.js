@@ -1,103 +1,102 @@
-const contenedor = document.querySelector('#carrito');
-const subtotalTotal = document.getElementById('sumaSubtotal');
-const costoEnvio = document.getElementById("costoEnvio")
-const tipoDeEnvio = document.getElementById("tipoDeEnvio")
-const totalCompra = document.getElementById("totalCompra");
+// Elements
+const container = document.querySelector('#cart');
+const subtotalTotal = document.getElementById('subtotalSum');
+const deliveryCost = document.getElementById("deliveryCost")
+const deliveryMethod = document.getElementById("deliveryMethod")
+const purchaseTotal = document.getElementById("purchaseTotal");
 
-// Traer y parsear productos comprados de localStorage
-const productosCarrito = JSON.parse(localStorage.getItem('productosCarrito')) || [];
+// Retrieve and parse purchased products from localStorage 
+const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
 
-////////////////////
-///// Funciones ///
-//////////////////
 
-function actualizarSubtotal(id) {
+// FUNCTIONS 
+// Updates subtotal of a product
+function updateSubtotal(id) {
     const input = document.getElementById(id);
     const subtotal = document.getElementById(`subtotal_${id}`);
-    const producto = productosCarrito.find(p => p.id === id);
-    const nuevoSubtotal = producto.unitCost * input.value;
-    subtotal.textContent = producto.currency + ' ' + nuevoSubtotal;
+    const product = cartProducts.find(p => p.id === id);
+    const newSubtotal = product.unitCost * input.value;
+    subtotal.textContent = product.currency + ' ' + newSubtotal;
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
-    prcEnvio();
+    prodDelivery();
     totalTotal();
 }
 
-//ENTREGA 6
-
-//PAUTA 2
-// Deshabilitar otro medio de pago según selección de checkbox
-function payMethod(){
-const radioUno = document.querySelector(".metodo-pago-uno");
-const radioDos = document.querySelector(".metodo-pago-dos");
-const credito = document.querySelectorAll('.tarjeta-credito');
-const transferencia = document.querySelector('.transferencia')
-if(radioUno.checked){
-    credito.forEach(elemento =>{
-        elemento.disabled = false;
-        elemento.classList.toggle('pe-none');
-        elemento.removeAttribute("aria-disabled")
-        elemento.value = ""
-        elemento.style.backgroundColor = 'white'
+// Disable alternative payment method based on selection 
+function disableAlternativeMethod(){
+const checkboxOne = document.querySelector(".payment-method-one");
+const checkboxTwo = document.querySelector(".payment-method-two");
+const credit = document.querySelectorAll('.credit-card');
+const transfer = document.querySelector('.transfer')
+if(checkboxOne.checked){
+    credit.forEach(element =>{
+        element.disabled = false;
+        element.classList.toggle('pe-none');
+        element.removeAttribute("aria-disabled")
+        element.value = ""
+        element.style.backgroundColor = 'white'
     })
-    transferencia.disabled = true;
-    transferencia.classList.add('pe-none');
-    transferencia.setAttribute("aria-disabled", "true")
-    transferencia.value = ""
-    transferencia.style.backgroundColor = 'lightcyan'
+    transfer.disabled = true;
+    transfer.classList.add('pe-none');
+    transfer.setAttribute("aria-disabled", "true")
+    transfer.value = ""
+    transfer.style.backgroundColor = 'lightcyan'
 }
-if(radioDos.checked){
-    transferencia.classList.toggle('pe-none');
-    transferencia.removeAttribute("aria-disabled");
-    transferencia.disabled = false;
-    transferencia.style.backgroundColor = 'white'
-    credito.forEach(elemento =>{
-        elemento.disabled = true;
-        elemento.classList.add('pe-none');
-        elemento.setAttribute("aria-disabled", "true")
-        elemento.value = ""
-        elemento.style.backgroundColor = 'lightcyan'
+if(checkboxTwo.checked){
+    transfer.classList.toggle('pe-none');
+    transfer.removeAttribute("aria-disabled");
+    transfer.disabled = false;
+    transfer.style.backgroundColor = 'white'
+    credit.forEach(element =>{
+        element.disabled = true;
+        element.classList.add('pe-none');
+        element.setAttribute("aria-disabled", "true")
+        element.value = ""
+        element.style.backgroundColor = 'lightcyan'
     })
 }
 }
 
-//Desafiate 
-function borrar(clase){
-    const clases = clase.className.split(' ');
-    const primeraClase = clases[0];
-    const div = document.getElementById(`container-${primeraClase}`)
+// Delete product functionality
+function deleteProduct(classNm){
+    const classes = classNm.className.split(' ');
+    const firstClass = classes[0];
+    const div = document.getElementById(`container-${firstClass}`)
     div.remove()
-    let productos = JSON.parse(localStorage.getItem('productosCarrito'));
-    const posicion = productos.findIndex(producto => producto.id === parseInt(primeraClase));
-    productos.splice(posicion, 1)
-    localStorage.setItem('productosCarrito', JSON.stringify(productos));
+    let products = JSON.parse(localStorage.getItem('cartProducts'));
+    const position = products.findIndex(product => product.id === parseInt(firstClass));
+    products.splice(position, 1)
+    localStorage.setItem('cartProducts', JSON.stringify(products));
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
-    prcEnvio();
+    prodDelivery();
     totalTotal();
 }
 
+// Calculates the total subtotal of the purchase
 function totalSubtotal() {
-    const subtotales = contenedor.querySelectorAll(".subtotal");
+    const subtotals = container.querySelectorAll(".subtotal");
     let total = 0;
-    let precio = 0;
+    let price = 0;
 
-    subtotales.forEach(subtotal => {
-       let texto = subtotal.textContent;
-       let num = parseInt(texto.slice(4));
+    subtotals.forEach(subtotal => {
+       let text = subtotal.textContent;
+       let num = parseInt(text.slice(4));
 
-       if(texto.includes('UYU')) {
-        precio = num / 40;
+       if(text.includes('UYU')) {
+        price = num / 40;
        } else {
-        precio = num;
+        price = num;
        }
 
-       total += precio;
+       total += price;
     })
     total = Math.trunc(total);
 
     return total
 }
 
-function prcEnvio(){
+// Calculates delivery cost 
+function prodDelivery(){
     const premium = document.getElementById("option1")
     const express = document.getElementById("option2")
     const standard = document.getElementById("option3")
@@ -105,225 +104,226 @@ function prcEnvio(){
     let total = parseInt(subtotalTotal.textContent.slice(4))
 
     if (premium.checked){
-       costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.15)}`         
+       deliveryCost.innerHTML = `USD ${Math.trunc(total * 0.15)}`         
     } else if (express.checked){
-        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.07)}`
+        deliveryCost.innerHTML = `USD ${Math.trunc(total * 0.07)}`
     } else if (standard.checked) {
-        costoEnvio.innerHTML = `USD ${Math.trunc(total * 0.05)}`
+        deliveryCost.innerHTML = `USD ${Math.trunc(total * 0.05)}`
     }
 }
  
+// Calculates total cost of purchase
 function totalTotal() {
     const num1 = parseInt(subtotalTotal.textContent.slice(4));
-    const num2 = parseInt(costoEnvio.textContent.slice(4));
+    const num2 = parseInt(deliveryCost.textContent.slice(4));
 
-    let sumaTotal = num1 + num2;
+    let sumTotal = num1 + num2;
 
-    totalCompra.innerHTML = `USD ${sumaTotal}`;
+    purchaseTotal.innerHTML = `USD ${sumTotal}`;
 }
 
-// Cargar en carrito articulo pre-cargado y actualizar subtotal
+// Load pre-loaded item into cart and update subtotal
 fetch(CART_INFO_URL + "25801.json")
 .then(response => response.json())
 .then(data => {
-    productosCarrito.push(data.articles[0])
+    cartProducts.push(data.articles[0])
     
-    // Cargar productos comprados en carrito y actualizar subtotal
-    for(let i=0; i<productosCarrito.length; i++) {
-        contenedor.innerHTML +=`
-        <div id="container-${productosCarrito[i].id}" class="row">
-        <div class="col"><img class="" src="${productosCarrito[i].image}" style="width: 4rem"></div>
-        <div class="col">${productosCarrito[i].name}</div>
-        <div class="col">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
-        <div class="col"><input id="${productosCarrito[i].id}" type="number" min="1" style="width:60px" value="${productosCarrito[i].count}" onchange="actualizarSubtotal(${productosCarrito[i].id})"></div>
-        <div class="col subtotal" id="subtotal_${productosCarrito[i].id}">${productosCarrito[i].currency} ${productosCarrito[i].unitCost}</div>
-        <div class="col"><span class="${productosCarrito[i].id} bi bi-trash" onclick="borrar(this)"></span></div>
+    for(let i=0; i<cartProducts.length; i++) {
+        container.innerHTML +=`
+        <div id="container-${cartProducts[i].id}" class="row">
+        <div class="col"><img class="" src="${cartProducts[i].image}" style="width: 4rem"></div>
+        <div class="col">${cartProducts[i].name}</div>
+        <div class="col">${cartProducts[i].currency} ${cartProducts[i].unitCost}</div>
+        <div class="col"><input id="${cartProducts[i].id}" type="number" min="1" style="width:60px" value="${cartProducts[i].count}" onchange="updateSubtotal(${cartProducts[i].id})"></div>
+        <div class="col subtotal" id="subtotal_${cartProducts[i].id}">${cartProducts[i].currency} ${cartProducts[i].unitCost}</div>
+        <div class="col"><span class="${cartProducts[i].id} bi bi-trash" onclick="deleteProduct(this)"></span></div>
         <br><br>
         <hr>
         </div>`;
-        actualizarSubtotal(productosCarrito[i].id);
+        updateSubtotal(cartProducts[i].id);
     }
     subtotalTotal.innerHTML = `USD ${totalSubtotal()}`
     totalTotal();
     
 })
 
-payMethod();
+disableAlternativeMethod();
 
-// Manejador de eventos a tipos de envio
-const tiposEnvio = tipoDeEnvio.querySelectorAll("input");
-tiposEnvio.forEach(envio => {
-    envio.addEventListener("click", () => {
-        prcEnvio();
+// Event handler for the delivery method 
+const deliveryMethods = deliveryMethod.querySelectorAll("input");
+deliveryMethods.forEach(delivery => {
+    delivery.addEventListener("click", () => {
+        prodDelivery();
         totalTotal();
     })
 })
-//PAUTA 3
 
-const inputGroup = document.querySelectorAll('.input-group-envio');
-const finalizarCompra = document.querySelector('.boton-finalizar');
-const inputCalle = document.querySelector('.input-calle');
-const inputNum = document.querySelector('.input-numero');
-const inputEsq = document.querySelector('.input-esquina');
-const compCamposWarning = document.querySelector('.warning-completar-campos');
 
-let envEsquinaAlert = false;
-let envNumAlert = false;
-let envCalleAlert = false;
-let numTarjeAlert = true;
-let cvvTarjeAlert = true;
-let vencTarjeAlert = true;
+// CHECK VALIDITY OF INPUTS FUNCTIONALITY
+const inputGroup = document.querySelectorAll('.input-group-delivery');
+const finalizePurchase = document.querySelector('.finish-button');
+const inputStreet = document.querySelector('.input-street');
+const inputNum = document.querySelector('.input-num');
+const inputCorner = document.querySelector('.input-corner');
+const compFieldsWarning = document.querySelector('.warning-complete-fields');
+
+let delivCornerAlert = false;
+let delivNumAlert = false;
+let delivStreetAlert = false;
+let numCreditCardAlert = true;
+let cvvCreditCardAlert = true;
+let expirCreditCardAlert = true;
 let modalAlert = true;
-let tipoEnvioAlert = false;
+let deliveryMethodAlert = false;
 
-function envioEsqCheck(){
-    const esquina = document.querySelector('.esquina');
-    if (!inputEsq.checkValidity()) {
-        esquina.classList.remove('d-none');
-        inputEsq.classList.add('is-invalid');
-        envEsquinaAlert = false;
+// Input validation functions
+function deliveryCornerCheck(){
+    const corner = document.querySelector('.corner');
+    if (!inputCorner.checkValidity()) {
+        corner.classList.remove('d-none');
+        inputCorner.classList.add('is-invalid');
+        delivCornerAlert = false;
     } else {
-        esquina.classList.add('d-none');
-        inputEsq.classList.remove('is-invalid');
-        envEsquinaAlert = true;
-        console.log()
+        corner.classList.add('d-none');
+        inputCorner.classList.remove('is-invalid');
+        delivCornerAlert = true;
     }
 }
   
 
-function envioNumCheck(){
-    const numero = document.querySelector('.numero');
+function deliveryNumCheck(){
+    const number = document.querySelector('.number');
     if (!inputNum.checkValidity()) {
-        numero.classList.remove('d-none');
+        number.classList.remove('d-none');
         inputNum.classList.add('is-invalid');
-        envNumAlert = false;
+        delivNumAlert = false;
     } else {
-        numero.classList.add('d-none');
+        number.classList.add('d-none');
         inputNum.classList.remove('is-invalid');
-        envNumAlert = true;
-        console.log(envNumAlert)
+        delivNumAlert = true;
+        console.log(delivNumAlert)
     }
 }
 
 
-function envioCalleCheck(){
-    const calle = document.querySelector('.calle');
-    if (!inputCalle.checkValidity()) {
-        calle.classList.remove('d-none');
-        inputCalle.classList.add('is-invalid');
-        envCalleAlert = false;
+function deliveryStreetCheck(){
+    const street = document.querySelector('.street');
+    if (!inputStreet.checkValidity()) {
+        street.classList.remove('d-none');
+        inputStreet.classList.add('is-invalid');
+        delivStreetAlert = false;
     } else {
-        calle.classList.add('d-none');
-        inputCalle.classList.remove('is-invalid');
-        envCalleAlert = true;
+        street.classList.add('d-none');
+        inputStreet.classList.remove('is-invalid');
+        delivStreetAlert = true;
     }
 }
 
 
-function numTarjCred(){
-    const numeroTarjeta = document.querySelector('.credito-numero');
-    const warningNumTarj = document.querySelector('.warning-credito-numero')
-    if(!numeroTarjeta.checkValidity()){
-        warningNumTarj.classList.remove('d-none')
-        numeroTarjeta.classList.add('is-invalid');
-        numTarjeAlert = false;
+function numCreditCard(){
+    const creditCardNumber = document.querySelector('.credit-card-number');
+    const warningCreditCardNum = document.querySelector('.warning-credit-card-number')
+    if(!creditCardNumber.checkValidity()){
+        warningCreditCardNum.classList.remove('d-none')
+        creditCardNumber.classList.add('is-invalid');
+        numCreditCardAlert = false;
     }
     else{
-        warningNumTarj.classList.add('d-none', 'd-block')
-        numeroTarjeta.classList.remove('is-invalid');
-        numTarjeAlert = true;
+        warningCreditCardNum.classList.add('d-none', 'd-block')
+        creditCardNumber.classList.remove('is-invalid');
+        numCreditCardAlert = true;
     }
 }
 
 
-function cvvTarjCred(){
-    const cvvTarjeta = document.querySelector('.credito-cvv');
-    const warningCvvTarj = document.querySelector('.warning-credito-cvv');
-    if(!cvvTarjeta.checkValidity()){
-        warningCvvTarj.classList.remove('d-none')
-        cvvTarjeta.classList.add('is-invalid');
-        cvvTarjeAlert = false;
+function cvvCreditCard(){
+    const cvvCreditCard = document.querySelector('.credit-card-cvv');
+    const warningCvvCreditCard = document.querySelector('.warning-credit-card-cvv');
+    if(!cvvCreditCard.checkValidity()){
+        warningCvvCreditCard.classList.remove('d-none')
+        cvvCreditCard.classList.add('is-invalid');
+        cvvCreditCardAlert = false;
     }
     else{
-        warningCvvTarj.classList.add('d-none')
-        cvvTarjeta.classList.remove('is-invalid');
-        cvvTarjeAlert = true;
+        warningCvvCreditCard.classList.add('d-none')
+        cvvCreditCard.classList.remove('is-invalid');
+        cvvCreditCardAlert = true;
     }
 }
 
 
-function vencimientoTarjCred(){
-    const vencimientoTarjeta = document.querySelector('.credito-vencimiento');
-    const warningVenciTarj = document.querySelector('.warning-credito-vencimiento');
-    if(!vencimientoTarjeta.checkValidity()){
-        warningVenciTarj.classList.remove('d-none')
-        vencimientoTarjeta.classList.add('is-invalid');
-        vencTarjeAlert = false;
+function expirationCreditCard(){
+    const creditCardExpir = document.querySelector('.credit-card-expir');
+    const warningExpirCreditCard = document.querySelector('.warning-credit-card-expir');
+    if(!creditCardExpir.checkValidity()){
+        warningExpirCreditCard.classList.remove('d-none')
+        creditCardExpir.classList.add('is-invalid');
+        expirCreditCardAlert = false;
     }
     else{
-        warningVenciTarj.classList.add('d-none')
-        vencimientoTarjeta.classList.remove('is-invalid');
-        vencTarjeAlert = true;
+        warningExpirCreditCard.classList.add('d-none')
+        creditCardExpir.classList.remove('is-invalid');
+        expirCreditCardAlert = true;
     }
 }
 
 
 function modal(){
-    const transBancaria = document.querySelector('.metodo-pago-dos');
-    const tarjCredito = document.querySelector('.metodo-pago-uno');
-    const metodoPago = document.querySelector('.warning-tarjetaCredito');
-    const transNum = document.querySelector('.transferencia-numero');
-    const transWarningNum = document.querySelector('.warning-transferencia-numero');
+    const bankTransfer = document.querySelector('.payment-method-two');
+    const creditCard = document.querySelector('.payment-method-one');
+    const paymentMethod = document.querySelector('.warning-credit-card');
+    const transNum = document.querySelector('.transfer-number');
+    const transWarningNum = document.querySelector('.warning-transfer-number');
     
 
-    if(!transBancaria.checked && !tarjCredito.checked){
-        metodoPago.classList.remove('d-none')
-        numTarjeAlert = false;
-        cvvTarjeAlert = false;
-        vencTarjeAlert = false;
+    if(!bankTransfer.checked && !creditCard.checked){
+        paymentMethod.classList.remove('d-none')
+        numCreditCardAlert = false;
+        cvvCreditCardAlert = false;
+        expirCreditCardAlert = false;
         modalAlert = false;
     }
     else{
-        if(tarjCredito.checked){
-            metodoPago.classList.add('d-none')
-            numTarjCred();
-            cvvTarjCred();
-            vencimientoTarjCred();
+        if(creditCard.checked){
+            paymentMethod.classList.add('d-none')
+            numCreditCard();
+            cvvCreditCard();
+            expirationCreditCard();
             transNum.classList.remove('is-invalid');
             transWarningNum.classList.add('d-none');
             modalAlert = true;
-            if( numTarjeAlert == false ||
-                cvvTarjeAlert == false ||
-                vencTarjeAlert == false){
-                compCamposWarning.classList.remove('d-none');
+            if( numCreditCardAlert == false ||
+                cvvCreditCardAlert == false ||
+                expirCreditCardAlert == false){
+                compFieldsWarning.classList.remove('d-none');
             }
-            else{compCamposWarning.classList.add('d-none');}
+            else{compFieldsWarning.classList.add('d-none');}
         }
-        if(transBancaria.checked){
+        if(bankTransfer.checked){
             if(transNum.value.trim() === ''){
-                metodoPago.classList.add('d-none')
+                paymentMethod.classList.add('d-none')
                 transNum.classList.add('is-invalid');
                 transWarningNum.classList.remove('d-none');
                 modalAlert = false;
-                compCamposWarning.classList.remove('d-none');
+                compFieldsWarning.classList.remove('d-none');
             }
             else{
-                metodoPago.classList.add('d-none')
+                paymentMethod.classList.add('d-none')
                 transNum.classList.remove('is-invalid');
                 transWarningNum.classList.add('d-none');
                 modalAlert = true;
-                numTarjeAlert = true;
-                cvvTarjeAlert = true;
-                vencTarjeAlert = true;
-                compCamposWarning.classList.add('d-none');
+                numCreditCardAlert = true;
+                cvvCreditCardAlert = true;
+                expirCreditCardAlert = true;
+                compFieldsWarning.classList.add('d-none');
             }
         }
     }
-    
 }
 
 
-finalizarCompra.addEventListener('click',function(){
+// Resume purchase functionality
+finalizePurchase.addEventListener('click',function(){
     let inputGroupPress = false;
     inputGroup.forEach(button=>{
         if (button.checked) {
@@ -331,52 +331,53 @@ finalizarCompra.addEventListener('click',function(){
         }  
     })
     
-    function grupodeinputs(){
-        const tipoEnvio = document.querySelector('.tipo-envio');
+    function groupOfInputs(){
+        const deliveryMethod = document.querySelector('.delivery-method');
         if(inputGroupPress){
-            tipoEnvio.classList.toggle('d-none', 'd-block');
-            tipoEnvioAlert = true
+            deliveryMethod.classList.toggle('d-none', 'd-block');
+            deliveryMethodAlert = true
         }
         if(!inputGroupPress){
-            tipoEnvio.classList.remove('d-none', 'd-block');
-            tipoEnvioAlert = false
+            deliveryMethod.classList.remove('d-none', 'd-block');
+            deliveryMethodAlert = false
         }
     }
-    grupodeinputs()
+    groupOfInputs()
 
-    envioCalleCheck();
-    envioEsqCheck();
-    envioNumCheck();
+    deliveryStreetCheck();
+    deliveryCornerCheck();
+    deliveryNumCheck();
 
     modal()
 
-    console.log(envEsquinaAlert)
-    console.log(envNumAlert)
-    console.log(envCalleAlert)
-    console.log(cvvTarjeAlert)
-    console.log(vencTarjeAlert)
+    console.log(delivCornerAlert)
+    console.log(delivNumAlert)
+    console.log(delivStreetAlert)
+    console.log(cvvCreditCardAlert)
+    console.log(expirCreditCardAlert)
     console.log(modalAlert)
-    console.log(tipoEnvioAlert)
+    console.log(deliveryMethodAlert)
 
     function alert(){
-        const alert = document.querySelector("#alert-compra");
+        const alert = document.querySelector("#purchaseAlert");
         if(
-            envEsquinaAlert == true &&
-            envNumAlert == true &&
-            envCalleAlert == true && 
-            cvvTarjeAlert == true &&
-            vencTarjeAlert == true && 
+            delivCornerAlert == true &&
+            delivNumAlert == true &&
+            delivStreetAlert == true && 
+            cvvCreditCardAlert == true &&
+            expirCreditCardAlert == true && 
             modalAlert == true && 
-            tipoEnvioAlert == true
+            deliveryMethodAlert == true
         ){
             alert.innerHTML +=`
             <div class="alert alert-success" role="alert">
             ¡Has comprado con éxito!
           </div>
             `
+            setTimeout(function() {
+                location.reload();
+            }, 3000);
         }
     }
     alert()
-
 })
-

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>eMercado - Todo lo que busques está aquí</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <style>
@@ -53,8 +54,15 @@
                 <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
                 <hr>
                 <li><a class="dropdown-item" href="#" id="menuLogoutClick">Cerrar Sesión</a></li>
+
               </ul>
           </li>
+          
+          <li>
+            <button class="switch" id="switch">
+              <span><i class="fas fa-moon"></i></span>
+            </button>
+          </li>  
         </ul>
       </div>
     </div>
@@ -70,24 +78,24 @@
           <div class="col-6">
             <h3>Perfil</h3>
           </div>       
-          <div id="mostrar-imagen" class="col-6">
-            <img id="imagen-perfil-default" src="img/profile-picture.webp" class="img-thumbnail imagen-perfil float-end" alt="..." width="120rem">
+          <div id="showPicture" class="col-6">
+            <img id="defaultProfilePicture" src="img/profile-picture.webp" class="img-thumbnail profile-picture float-end" alt="..." width="120rem">
           </div>
         </div>
         <hr>
-        <form action="" id="miPerfil">
+        <form action="" id="myProfile">
           <div class="row g-2">
             <div class="col-md">
               <div class="form">
-                <label for="nombre" class="form-label">Primer nombre*</label>
-                <input type="text" class="form-control campo-obligatorio" id="nombre" placeholder="Nombre" required>
+                <label for="name" class="form-label">Primer nombre*</label>
+                <input type="text" class="form-control required-field" id="name" placeholder="Nombre" required>
                 <p id="Nombre" class="d-none" style="color: red;">Ingrese su nombre</p>
               </div>
             </div>
             <div class="col-md">
               <div class="form">
-                <label for="segundo-nombre" class="form-label">Segundo nombre</label>
-                <input type="text" class="form-control" id="segundo-nombre" placeholder="segundo nombre">                
+                <label for="secondName" class="form-label">Segundo nombre</label>
+                <input type="text" class="form-control" id="secondName" placeholder="segundo nombre">                
               </div>
             </div>
           </div>
@@ -95,15 +103,15 @@
           <div class="row g-2">
             <div class="col-md">
               <div class="form">
-                <label for="apellido" class="form-label">Primer apellido*</label>
-                <input type="text" class="form-control campo-obligatorio" id="apellido" placeholder="Apellido" required>
+                <label for="lastname" class="form-label">Primer apellido*</label>
+                <input type="text" class="form-control required-field" id="lastname" placeholder="Apellido" required>
                 <p id="Apellido" class="d-none" style="color: red;">Ingrese su apellido</p>
               </div>
             </div>
             <div class="col-md">
               <div class="form">
-                <label for="segundo-apellido" class="form-label">Segundo apellido</label>
-                <input type="text" class="form-control" id="segundo-apellido" placeholder="segundo apellido">                
+                <label for="second-lastname" class="form-label">Segundo apellido</label>
+                <input type="text" class="form-control" id="second-lastname" placeholder="segundo apellido">                
               </div>
             </div>
           </div>
@@ -118,7 +126,7 @@
             <div class="col-md">
               <div class="form">
                 <label for="floatingInputGrid" class="form-label">Imagen de perfil</label>
-                <input type="file" class="form-control input-imagen" id="floatingInputGrid imagen-perfil">                
+                <input type="file" class="form-control input-picture" id="floatingInputGrid profile-picture">                
               </div>
             </div>
           </div>
@@ -126,9 +134,9 @@
           <div class="row g-2">
             <div class="col-6">
               <div class="form">
-                <label for="telefono" class="form-label">Telefono de contacto*</label>
-                <input type="text" class="form-control campo-obligatorio" id="telefono" placeholder="Telefono" required>
-                <p id="Telefono" class="d-none" style="color: red;">Ingrese su telefono</p>
+                <label for="phoneNumber" class="form-label">Teléfono de contacto*</label>
+                <input type="text" class="form-control required-field" id="phoneNumber" placeholder="Telefono" required>
+                <p id="Telefono" class="d-none" style="color: red;">Ingrese su teléfono</p>
               </div>
             </div>
           </div>
@@ -147,7 +155,7 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jóvenes a Programar</a></p>
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>

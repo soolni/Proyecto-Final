@@ -1,11 +1,18 @@
+// Sorting criteria
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COUNT = "Cant.";
+const ORDER_BY_PROD_COUNT = "Qty.";
+// Categories array
 let currentCategoriesArray = [];
+// Sort criteria
 let currentSortCriteria = undefined;
+// Quantity limits
 let minCount = undefined;
 let maxCount = undefined;
 
+
+// FUNCTIONS
+// Sort an array based on a criterion
 function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
@@ -15,13 +22,13 @@ function sortCategories(criteria, array){
             if ( a.name > b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
+    } else if (criteria === ORDER_DESC_BY_NAME){
         result = array.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
+    } else if (criteria === ORDER_BY_PROD_COUNT){
         result = array.sort(function(a, b) {
             let aCount = parseInt(a.productCount);
             let bCount = parseInt(b.productCount);
@@ -31,7 +38,6 @@ function sortCategories(criteria, array){
             return 0;
         });
     }
-
     return result;
 }
 
@@ -40,6 +46,7 @@ function setCatID(id) {
     window.location = "products.html"
 }
 
+// Show category if it's between the range of minCount and maxCount
 function showCategoriesList(){
 
     let htmlContentToAppend = "";
@@ -71,6 +78,7 @@ function showCategoriesList(){
     }
 }
 
+// Shows and sorts an array based on a criterion
 function sortAndShowCategories(sortCriteria, categoriesArray){
     currentSortCriteria = sortCriteria;
 
@@ -80,35 +88,37 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 
     currentCategoriesArray = sortCategories(currentSortCriteria, currentCategoriesArray);
 
-    //Muestro las categorías ordenadas
     showCategoriesList();
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
+
+// EVENT HANDLERS 
+// Request and show data, and handle filter functionality  
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(CATEGORIES_URL).then(function(resultObj){
-        console.log(resultObj);
+    getJSONData(CATEGORIES_URL)
+    .then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data
             showCategoriesList()
-            //sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
 
+    // Sort in ascending order by name
     document.getElementById("sortAsc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_ASC_BY_NAME);
     });
 
+    // Sort in descending order by name
     document.getElementById("sortDesc").addEventListener("click", function(){
         sortAndShowCategories(ORDER_DESC_BY_NAME);
     });
 
+    // Sort in descending order by product count
     document.getElementById("sortByCount").addEventListener("click", function(){
         sortAndShowCategories(ORDER_BY_PROD_COUNT);
     });
 
+    // Clear filter values
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
         document.getElementById("rangeFilterCountMin").value = "";
         document.getElementById("rangeFilterCountMax").value = "";
@@ -119,9 +129,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         showCategoriesList();
     });
 
+    // Sort between minimum and maximum values
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
         minCount = document.getElementById("rangeFilterCountMin").value;
         maxCount = document.getElementById("rangeFilterCountMax").value;
 

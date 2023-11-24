@@ -41,6 +41,12 @@
                 <li><a class="dropdown-item" href="#" id="menuLogoutClick">Cerrar Sesión</a></li>
               </ul>
           </li>
+
+          <li>
+            <button class="switch" id="switch">
+              <span><i class="fas fa-moon"></i></span>
+            </button>
+          </li>     
         </ul>
       </div>
     </div>
@@ -57,7 +63,7 @@
       <br><br>
       <h3>Artículos a comprar</h3>
       <br>
-      <div id="carrito" class="container text-center">
+      <div id="cart" class="container text-center">
         <div class="row">
           <div class="col"></div>
           <div class="col"><strong>Nombre</strong></div>
@@ -70,25 +76,25 @@
       </div>
       <br>
 
-      <div id="tipoDeEnvio">
+      <div id="deliveryMethod">
         <hr>
         <h3>Tipo de envío</h3>
         <br>
         <div class="form-check">
-          <input type="radio" class="input-group-envio form-check-input" name="radionExam" id="option1">
+          <input type="radio" class="input-group-delivery form-check-input" name="radionExam" id="option1">
           <label for="option1">Premium 2 a 5 días (15%)</label>
         </div>
 
         <div class="form-check">
-          <input type="radio" class="input-group-envio form-check-input" name="radionExam" id="option2">
+          <input type="radio" class="input-group-delivery form-check-input" name="radionExam" id="option2">
           <label for="option2">Express 5 a 8 días (7%)</label>
         </div>  
 
         <div class="form-check">
-          <input type="radio" class="input-group-envio form-check-input" name="radionExam" id="option3">
+          <input type="radio" class="input-group-delivery form-check-input" name="radionExam" id="option3">
           <label for="option3">Standard 12 a 15 días (5%)</label>
         </div>
-        <p class="tipo-envio d-none" style="color: red;">Seleccione un metodo de envio</p>
+        <p class="delivery-method d-none" style="color: red;">Seleccione un metodo de envio</p>
       </div>
       <br><br>
 
@@ -97,18 +103,18 @@
           <div class="row">
             <h3>Dirección de envío</h3>
             <div class="col-6">
-              <label for="calle" class="">Calle:</label> <input class="input-calle form-control" type="text" name="calle" required>
-              <p class="calle d-none" style="color: red;">Ingresa una calle</p>
+              <label for="street" class="">Calle:</label> <input class="input-street form-control" type="text" name="street" required>
+              <p class="street d-none" style="color: red;">Ingresa una calle</p>
             </div>
             <div class="col-4">
-              <label for="numero" class="">Número:</label> <input class="input-numero form-control" type="text" name="numero" required>
-              <p class="numero d-none" style="color: red;">Ingresa un numero</p>
+              <label for="number" class="">Número:</label> <input class="input-num form-control" type="text" name="number" required>
+              <p class="number d-none" style="color: red;">Ingresa un numero</p>
             </div>
           </div>
           <div class="row">
             <div class="col-6">
-              <label for="esquina" class="">Esquina:</label> <input class="input-esquina form-control" type="text" name="esquina" required>
-              <p class="esquina d-none" style="color: red;">Ingresa una esquina</p>
+              <label for="corner" class="">Esquina:</label> <input class="input-corner form-control" type="text" name="corner" required>
+              <p class="corner d-none" style="color: red;">Ingresa una esquina</p>
             </div>
           </div>
           <br><br><hr>
@@ -121,21 +127,21 @@
           <li class="list-group-item">
             <div class="row">
               <div class="col-10"><h5 class="text-secondary">Subtotal</h5></div>
-              <div id="sumaSubtotal" class="col text-end text-secondary">USD999</div>
+              <div id="subtotalSum" class="col text-end text-secondary">USD999</div>
             </div>
             <p class="text-secondary">Costo unitario del producto por cantidad</p>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-10"><h5 class="text-secondary">Costo de envio</h5></div>
-              <div id="costoEnvio" class="col text-end text-secondary">USD 0</div>
+              <div id="deliveryCost" class="col text-end text-secondary">USD 0</div>
             </div>
             <p class="text-secondary">Segun el tipo de envio</p>
           </li>
           <li class="list-group-item">
             <div class="row">
               <div class="col-10"><h5 class="text-secondary">Total($)</h5></div>
-              <div id="totalCompra" class="col text-end">USD 0</div>
+              <div id="purchaseTotal" class="col text-end">USD 0</div>
             </div>
           </li>
       </ul>
@@ -145,11 +151,11 @@
     <div id="formaPago">
       <h3>Forma de pago</h3>
       <p>No ha seleccionado <a href="#mi-modal" data-bs-toggle="modal">seleccionar</a></p>
-      <p class="warning-tarjetaCredito d-none" style="color: red;">Seleccione un metodo de pago</p>
-      <p class="warning-completar-campos d-none" style="color: red;">Complete los campos</p>
+      <p class="warning-credit-card d-none" style="color: red;">Seleccione un método de pago</p>
+      <p class="warning-complete-fields d-none" style="color: red;">Complete los campos</p>
       <br>
       <div class="d-grid gap-2">
-        <button class="boton-finalizar btn btn-primary" type="submit">Finalizar compra</button>
+        <button class="finish-button btn btn-primary" type="submit">Finalizar compra</button>
       </div>
 
       <div class="modal" id="mi-modal">
@@ -158,36 +164,36 @@
             <h3>Forma de pago</h3>
             <br>
             <div class="form-check">
-              <input class="input-modal form-check-input metodo-pago-uno" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="payMethod()">
-              <label class="form-check-label" for="flexRadioDefault1">Tarjeta de credito</label>
+              <input class="input-modal form-check-input payment-method-one" type="radio" name="flexRadioDefault" id="flexRadioDefault1"onchange="disableAlternativeMethod()">
+              <label class="form-check-label" for="flexRadioDefault1">Tarjeta de crédito</label>
             </div>
             <hr>
             <div class="row">
               <div class="col-6">
-                <label for="numero" class="">Num de tarjeta</label> <input class="credito-numero form-control tarjeta-credito pe-none" type="text" name="numero" required>
-                <p class="warning-credito-numero d-none" style="color: red;">Escriba un numero</p>
+                <label for="number" class="">Num de tarjeta</label> <input class="credit-card-number form-control credit-card pe-none" type="text" name="number" required>
+                <p class="warning-credit-card-number d-none" style="color: red;">Escriba un numero</p>
               </div>
               <div class="col-4">
-                <label for="cvv" class="">CVV</label> <input class="credito-cvv form-control tarjeta-credito pe-none" type="text" name="cvv" required>
-                <p class="warning-credito-cvv d-none" style="color: red;">Escriba su cod. de seguridad</p>
+                <label for="cvv" class="">CVV</label> <input class="credit-card-cvv form-control credit-card pe-none" type="text" name="cvv" required>
+                <p class="warning-credit-card-cvv d-none" style="color: red;">Escriba su cod. de seguridad</p>
               </div>
             </div>
             <div class="row">
               <div class="col-6">
-                <label for="vencimiento" class="">Vencimiento(MM/AA)</label> <input class="credito-vencimiento form-control tarjeta-credito pe-none" type="date" name="vencimiento" required>
-                <p class="warning-credito-vencimiento d-none" style="color: red;">Seleccione una fecha</p>
+                <label for="expiration" class="">Vencimiento(MM/AA)</label> <input class="credit-card-expir form-control credit-card pe-none" type="date" name="expiration" required>
+                <p class="warning-credit-card-expir d-none" style="color: red;">Seleccione una fecha</p>
               </div>
             </div>
             <br>
             <div class="form-check">
-              <input class="input-modal form-check-input metodo-pago-dos " type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="payMethod()"> 
+              <input class="input-modal form-check-input payment-method-two" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="disableAlternativeMethod()"> 
               <label class="form-check-label" for="flexRadioDefault2">Transferencia bancaria</label>
             </div>
             <hr>
             <div class="row">
               <div class="col-6">
-                <label for="trans-numero" class="">Numero de cuenta</label> <input class="transferencia-numero form-control transferencia pe-none" type="text" name="trans-numero">
-                <p class="warning-transferencia-numero d-none" style="color: red;">Escriba un numero</p>
+                <label for="trans-number" class="">Número de cuenta</label> <input class="transfer-number form-control transfer pe-none" type="text" name="trans-number">
+                <p class="warning-transfer-number d-none" style="color: red;">Escriba un numero</p>
               </div>
             </div>
           </div>
@@ -195,7 +201,7 @@
       </div>
     </div>
     </div>
-    <div id="alert-compra">
+    <div id="purchaseAlert">
 
     </div>
   </main>
@@ -205,7 +211,7 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jóvenes a Programar</a></p>
     </div>
   </footer>
   <div id="spinner-wrapper">

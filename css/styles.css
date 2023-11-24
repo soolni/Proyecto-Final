@@ -5,6 +5,20 @@
   font-family: 'Verdana', serif !important;
 }
 
+#searchBar {
+  max-width: 100%;
+  border: none; 
+}
+
+.jumbotron.text-center.row {
+  background-color: rgba(248,249,250,255);
+}
+
+#ftBgColorImg,
+#mnBgColorImg {
+  background-color: rgba(248,249,250,255);
+}
+
 body {
   background: white;
   transition: .3s ease all;
@@ -18,10 +32,6 @@ body {
   align-items: center; 
   padding: 10px; 
   margin-bottom: 10px; 
-}
-
-input#buscador {
-  border: none;
 }
 
 .item img {

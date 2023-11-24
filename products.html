@@ -43,7 +43,6 @@
                 </ul>
             </div>
           </li>
-          <!--Boton modo-->
           <li>
             <button class="switch" id="switch">
               <span><i class="fas fa-moon"></i></span>
@@ -53,7 +52,7 @@
       </div>
     </div>
   </nav>
-  <!--Botones filtro-->
+  
   <br>
   <div class="container">
     <div class="row">
@@ -61,32 +60,39 @@
         <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
           <input type="radio" class="btn-check" name="options" id="sortDescPrice" checked>
           <label class="btn btn-light" for="sortDescPrice"><i class="fas fa-sort-amount-down mr-1"></i>$</label>
+
           <input type="radio" class="btn-check" name="options" id="sortAscPrice" checked>
           <label class="btn btn-light" for="sortAscPrice"><i class="fas fa-sort-amount-up mr-1"></i>$</label>
+
           <input type="radio" class="btn-check" name="options" id="sortByRel" checked>
           <label class="btn btn-light" for="sortByRel"><i class="fas fa-sort-amount-down mr-1"></i>Rel.</label>
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="">
         <div class="row container p-0 m-0">
           <div class="col-sm-12 col-xl-4 col-xxl-4 col-lg-4 col-md-4">
             <form class="form-control">
               <li class="input-group ">
-                <input type="search" name="search" placeholder="Buscar..." id="buscador">
+                <input type="search" name="search" placeholder="Buscar..." id="searchBar">
               </li>
             </form>
+
           </div>
           <div class="col">
             <p class="font-weight-normal text-end my-2">Precio</p>
           </div>
+
           <div class="col">
-            <input class="form-control rangePrice" type="number" placeholder="min." id="rangeFilterPriceMin">
+            <input class="form-control rangePrice" type="number" placeholder="min." id="rangeFilterPriceMin" min="0">
           </div>
+
           <div class="col">
-            <input class="form-control rangePrice" type="number" placeholder="máx." id="rangeFilterPriceMax">
+            <input class="form-control rangePrice" type="number" placeholder="máx." id="rangeFilterPriceMax" min="0">
           </div>
+
           <div class="col-auto p-0">
             <div class="btn-group" role="group">
               <button class="btn btn-light btn-block" id="rangeFilterPrice">Filtrar</button>
@@ -97,7 +103,7 @@
         </div>
     </div>
     </div>
-    <!--fin filtro-->
+    
   <main class="pb-5 container">
     <div class="container" >
       <div class="product-info" id="products" >
@@ -105,12 +111,13 @@
       </div>
     </div>
   </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jóvenes a Programar</a></p>
     </div>
   </footer>
   <div id="spinner-wrapper">
