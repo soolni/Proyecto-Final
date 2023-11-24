@@ -136,8 +136,8 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
           if(newComment[j].id === localStorage.getItem("clickedItemId")){
   
               comments.innerHTML += `
-              <p><strong>${newComment[j].usuario}</strong> - ${newComment[j].fecha} - ${starsHTML}</p>
-              <p>${newComment[j].comentario}</p><hr>
+              <p><strong>${newComment[j].user}</strong> - ${newComment[j].date} - ${starsHTML}</p>
+              <p>${newComment[j].comment}</p><hr>
               `; 
           }     
         }
