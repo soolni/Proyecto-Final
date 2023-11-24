@@ -54,7 +54,7 @@ span.precioProd {
   min-width: 85px;
 }
 
-.centrado {
+.center {
   justify-content: center;
   text-align: center;
 }
@@ -303,12 +303,12 @@ body.dark {
 }
 
 
-.producto {
+.product {
   display: flex;
   justify-content: space-between;
 }
 
-.comprar {
+.purchase {
   height: 3rem;
   align-self: center;
 }
