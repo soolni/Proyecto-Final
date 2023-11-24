@@ -183,11 +183,11 @@ fetch(PRODUCT_INFO_COMMENTS_URL + `${localStorage.getItem("clickedItemId")}.json
         const user = localStorage.getItem("user");
         const ID = localStorage.getItem("clickedItemId")
         const currentDate = new Date();
-        const formatedDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)} ${('0' + currentDate.getHours()).slice(-2)}:${('0' + currentDate.getMinutes()).slice(-2)}:${('0' + currentDate.getSeconds()).slice(-2)}`;
+        const formattedDate = `${currentDate.getFullYear()}-${('0' + (currentDate.getMonth() + 1)).slice(-2)}-${('0' + currentDate.getDate()).slice(-2)} ${('0' + currentDate.getHours()).slice(-2)}:${('0' + currentDate.getMinutes()).slice(-2)}:${('0' + currentDate.getSeconds()).slice(-2)}`;
         
         const commentData = {
             rating: selectedRating,
-            date: fechaFormateada,
+            date: formattedDate,
             comment: comment,
             user: user,
             id: ID,
